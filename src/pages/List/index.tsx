@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import ContentHeader from '../../components/ContentHeader';
 import HistoryComponentCard from '../../components/HistoryComponentCard';
 
 import { Filters } from './style';
 
-import { formatTitle } from '../../utils/functionsAuxiliares';
+import { formatTitle, filterType } from '../../utils/functionsAuxiliares';
 
 const arrayEntrada = [
     {
@@ -97,19 +97,12 @@ const arraySaida= [
  
 ]
 
-
 interface IListProps {
     match:{
-        params: any
-        // params: Object
+        params: {
+            type: string
+        }
     }
-}
-
-const filterType = (array:any, value: number) => {
-    let x = array.filter((e: any) => {
-        return (e.tagColor === value)
-    })
-    return x;
 }
 
 const List : React.FC <IListProps>= ( match )  => {
@@ -118,6 +111,11 @@ const List : React.FC <IListProps>= ( match )  => {
         eventuais: false,
         all: true
     });
+
+    let changeTitle = match.match.params.type;
+    const title = useMemo(()=>{
+       return (formatTitle(changeTitle) === "Entrada") ? "Entrada" : "Saída" 
+    }, [changeTitle]);
     
     const changeStateFilter = (buttonFilter: string) => {
         if(buttonFilter === 'recorrentes'){
@@ -150,9 +148,7 @@ const List : React.FC <IListProps>= ( match )  => {
         }
             
     }
-    
-    let changeTitle = match.match.params.type;
-    
+   
     const renderArrayData = (array: any) => {
         return array.map((e: any, index: number )=> {
             return (
@@ -178,7 +174,7 @@ const List : React.FC <IListProps>= ( match )  => {
     
     return (
         <React.Fragment>
-            <ContentHeader title={formatTitle(changeTitle)} lineColor={(formatTitle(changeTitle) === 'Entrada') ? '#F7931B' : '#E44C4E'}/>
+            <ContentHeader title={title} lineColor={(title === 'Entrada') ? '#F7931B' : '#E44C4E'}/>
             <Filters>
                 <button className="button" onClick={() => changeStateFilter('recorrentes')}>
                     <h4>Recorrentes</h4>
@@ -190,7 +186,7 @@ const List : React.FC <IListProps>= ( match )  => {
                 </button>
             </Filters>
             {
-                (formatTitle(changeTitle) === 'Entrada') ?
+                (title === 'Entrada') ?
                     ArrayData(arrayEntrada)
                     :
                     ArrayData(arraySaida)

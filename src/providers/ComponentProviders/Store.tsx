@@ -1,12 +1,10 @@
 import React, {  useContext } from 'react';
 
-
-
 import { DataContext } from '../DataContext';
 
 interface IDataContextProps{
     children: React.ReactNode;
-    changeTheme: any
+    changeTheme: Function
 }
 
 

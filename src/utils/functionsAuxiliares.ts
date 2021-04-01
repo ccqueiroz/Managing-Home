@@ -62,3 +62,10 @@ export const formatTitle = (name: any) => {
     n = n.join('');
     return n;
 }
+
+export const filterType = (array:any, value: number) => {
+    let x = array.filter((e: any) => {
+        return (e.tagColor === value)
+    })
+    return x;
+}
