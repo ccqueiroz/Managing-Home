@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ContentHeader from '../../components/ContentHeader';
 import HistoryComponentCard from '../../components/HistoryComponentCard';
 
@@ -6,108 +6,17 @@ import { Filters } from './style';
 
 import { formatTitle, filterType, formatDate } from '../../utils/functionsAuxiliares';
 
-import expenses from '../../repositories/expenses';
-import gains from '../../repositories/gains';
+import masterArray from '../../repositories/master';
+import ListCardsInputOutput from '../../components/listCardsInputOutput';
 
 export interface IArrayData {
      
         description: string;
         date: string | Date;
         frequency: boolean;
-        amount: number;
+        amount: number | string;
+        type: string
 }
-
-
-const arrayEntrada : IArrayData[] = [
-     {
-        description: 'Freela 1',
-        date: '21/10/2020',
-        frequency: false,
-        amount: 106.56
-
-    },
-    {
-        description: 'Freela 2',
-        date: '21/10/2020',
-        frequency: true,
-        amount: 690.90
-
-    },
-    {
-        description: 'Freela 3',
-        date: '21/10/2020',
-        frequency: true,
-        amount: 690.90
-
-    },
-
-]
-const arraySaida= [
-    {
-        description: 'Conta de água',
-        date: '21/10/2020',
-        frequency: true,
-        amount: 0
-
-    },
-    {
-        description: 'Conta de Luz',
-        date: '21/10/2020',
-        frequency: false,
-        amount: 106.56
-
-    },
-    {
-        description: 'Conta de Supermercado',
-        date: '21/10/2020',
-        frequency: false,
-        amount: 690.90
-
-    },
-    {
-        description: 'Conta de Supermercado',
-        date: '21/10/2020',
-        frequency: false,
-        amount: 690.90
-
-    },
-    {
-        description: 'Conta de Supermercado',
-        date: '21/10/2020',
-        frequency: true,
-        amount: 690.90
-
-    },
-    {
-        description: 'Conta de Supermercado',
-        date: '21/10/2020',
-        frequency: true,
-        amount: 690.90
-
-    },
-    {
-        description: 'Conta de Supermercado',
-        date: '21/10/2020',
-        frequency: true,
-        amount: 690.90
-
-    },
-    {
-        description: 'Conta de Supermercado',
-        date: '21/10/2020',
-        frequency: true,
-        amount: 690.90
-
-    },
-    {
-        description: 'Conta de Supermercado',
-        date: '21/10/2020',
-        frequency: true,
-        amount: 690.90
-
-    },
- 
-]
 
 interface IListProps {
     match:{
@@ -120,17 +29,34 @@ interface IListProps {
 
 
 const List : React.FC <IListProps>= ( match )  => {
+    /* Hook de filtro */
     const [ stateFilter, setStateFilter ] = useState({
         recorrentes: false,
         eventuais: false,
         all: true
     });
 
+    /* Hook dos arrays que serão modificados pelo BD */
+    const [ arrayData, setArrayData ] = useState<Array<IArrayData>>([]);
+
+    /* Memo para verificação do tipó de tela que será entregue */
     const changeTitle = match.match.params.type;
     const title = useMemo(()=>{
        return (formatTitle(changeTitle) === "Entrada") ? "Entrada" : "Saída" 
     }, [changeTitle]);
-    
+
+    /* separação dos dados por tipo -> entrada || saída */ 
+    const typeDataArray =  useMemo<any>(()=>{
+        return masterArray.filter((e  ) => {
+            return e.type === title.toLowerCase();
+        });
+    }, [changeTitle]);
+
+    /* populando a tela */
+    useEffect(()=>{
+        setArrayData(typeDataArray);
+    }, [changeTitle])
+
     const changeStateFilter = (buttonFilter: string) => {
         if(buttonFilter === 'recorrentes'){
             if(stateFilter.all && !stateFilter.recorrentes && !stateFilter.eventuais){
@@ -162,37 +88,23 @@ const List : React.FC <IListProps>= ( match )  => {
         }
             
     }
-   
-    const renderArrayData = (array: any) => {
-        return array.map((e: any, index: number )=> {
-            return (
-                <HistoryComponentCard key={index} title={e.description} date={formatDate(e.date)} frequency={(e.frequency) ? '#4E41F0' : '#E44C4E'}  amount={e.amount}/>
-            );
-        })
-    }
-    
+
     const ArrayData = (array: any) =>{
-        let arrayReturn = Array;
+        let arrayReturn = [];
         if(!stateFilter.eventuais && !stateFilter.recorrentes){
-            arrayReturn = renderArrayData(array)
+            arrayReturn = array
         }else if(stateFilter.eventuais || stateFilter.recorrentes){
             if(stateFilter.eventuais && !stateFilter.recorrentes){
-                arrayReturn = renderArrayData(filterType(array, true))
+                arrayReturn = filterType(array, true)
             }else if(!stateFilter.eventuais && stateFilter.recorrentes){
-                arrayReturn = renderArrayData(filterType(array, false))
+                arrayReturn = filterType(array, false)
             }
         }   
     
        return arrayReturn;
     }
     
-    
 /* TESTE DE FUNÇÕES */
-
-const dateN = '2027-02-09';
-const dateN2 = new Date();
-formatDate(dateN2)
-formatDate(dateN)
 
 /* ----------------------------- */
     return (
@@ -208,13 +120,8 @@ formatDate(dateN)
                     <span className="tag-eventuais"></span>
                 </button>
             </Filters>
-            {
-                (title === 'Entrada') ?
-                    ArrayData(gains)
-                    :
-                    ArrayData(expenses)
-            }
-        </React.Fragment>
+                <ListCardsInputOutput arrayData={ArrayData(arrayData)}/>
+         </React.Fragment>
     );
 }
 
