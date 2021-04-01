@@ -7,15 +7,20 @@ export interface ISelectInputProps {
         value: string | number;
         label?: string | number;
     }[],
-    defaultMonth ?: string | number
+    defaultMonth ?: string | number,
+    valueSelectedProp : Function
 
 }
 
-const SelectInput : React.FC<ISelectInputProps> = ({ options, defaultMonth }) => {
+// const func = (e: any) => {
+//     console.log(e.target.value)
+// }
+
+const SelectInput : React.FC<ISelectInputProps> = ({ options, defaultMonth, valueSelectedProp }) => {
 
         return(
             <Container>
-               <select>
+               <select onChange={ (e : any) => { valueSelectedProp(e) }}>
                   {
                       options.map(option => {
                           return (

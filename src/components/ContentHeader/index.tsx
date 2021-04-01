@@ -9,9 +9,11 @@ import { addYear } from '../../utils/functionsAuxiliares';
 interface IContentHeaderProps {
     title: string,
     lineColor: string,
+    valueSelectedMonth : Function,
+    valueSelectedYear : Function,
 }
 
-const ContentHeader: React.FC<IContentHeaderProps> = ({ title, lineColor }) => {
+const ContentHeader: React.FC<IContentHeaderProps> = ({ title, lineColor, valueSelectedMonth, valueSelectedYear }) => {
 
     const [month, setMonth] = useState(0);
     // const [dayWeek, setdayWeek] = useState(0);
@@ -35,16 +37,15 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({ title, lineColor }) => {
         return years;
     }, [years]);
 
-
     return (
         <Container>
             <TitleController lineColor={lineColor}>
                 <h1>{title}</h1>
             </TitleController>
             <Controllers>
-                <SelectInput options={dataSelect} defaultMonth={monthCurrentValue} />
+                <SelectInput options={dataSelect} defaultMonth={monthCurrentValue} valueSelectedProp={valueSelectedMonth}/>
                 {/* <SelectInput options={listDayMonth(dayMonth, date)} defaultMonth={dayMonthcurrentValue} /> */}
-                <SelectInput options={addYear(date, yearsArray)} defaultMonth={yearcurrentValue} />
+                <SelectInput options={addYear(date, yearsArray)} defaultMonth={yearcurrentValue} valueSelectedProp={valueSelectedYear}/>
             </Controllers>
         </Container>
     );

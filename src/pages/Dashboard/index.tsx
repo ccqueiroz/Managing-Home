@@ -5,7 +5,7 @@ import {Container} from './style';
 const Dashboard : React.FC = () => {
     return (
         <Container>
-            <ContentHeader title="Dashboard" lineColor="#4E41F0"></ContentHeader>
+            <ContentHeader title="Dashboard" lineColor="#4E41F0" valueSelectedMonth={()=>{}} valueSelectedYear={()=>{}}></ContentHeader>
         </Container>
     );
 }
