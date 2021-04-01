@@ -12,10 +12,6 @@ export interface ISelectInputProps {
 
 }
 
-// const func = (e: any) => {
-//     console.log(e.target.value)
-// }
-
 const SelectInput : React.FC<ISelectInputProps> = ({ options, defaultMonth, valueSelectedProp }) => {
 
         return(
@@ -24,7 +20,7 @@ const SelectInput : React.FC<ISelectInputProps> = ({ options, defaultMonth, valu
                   {
                       options.map(option => {
                           return (
-                              <Option key={option.value} value={option.value} selected={(defaultMonth == option.value)} >{option.label}</Option>
+                              <Option key={option.value} value={option.value} selected={(defaultMonth === option.value)} >{option.label}</Option>
                           );
                       })
                   }

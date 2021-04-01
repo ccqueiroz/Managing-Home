@@ -3,7 +3,7 @@ import ContentHeader from '../../components/ContentHeader';
 
 import { Filters } from './style';
 
-import { formatTitle, filterType  } from '../../utils/functionsAuxiliares';
+import { formatTitle, filterType, formatDate  } from '../../utils/functionsAuxiliares';
 
 import masterArray from '../../repositories/master';
 import ListCardsInputOutput from '../../components/listCardsInputOutput';
@@ -55,30 +55,29 @@ const List : React.FC <IListProps>= ( match )  => {
 
     /* populando a tela com filtro por Ano e mês -> ao carregar a tela */
     useEffect(()=>{
-        const array = typeDataArray.filter((el : any) => {
-            const array = el.date.toString().split('-');
+        const array = typeDataArray.filter((el : IArrayData) => {
+            const date = formatDate(el.date).split('/');
             const month = String((+valueSelectMonth < 10) ? `0${valueSelectMonth}` : valueSelectMonth);
-
-             if(array[0] === valueSelectYear){
-                if(array[1] === month){
-                    return el
-                }
-            }
+            if(date[2] === valueSelectYear){
+               if(date[1] === month){
+                   return el
+               }
+           }
         });
         setArrayData(array);
     }, []);
 
     /* populando a tela com filtro por Ano e mês -> ao mudar os campos nos selects ou alterar o match */
     useEffect(()=>{
-        const array = typeDataArray.filter((el : any) => {
-            const array = el.date.toString().split('-');
+        const array = typeDataArray.filter((el : IArrayData) => {
+            const date = formatDate(el.date).split('/');
             const month = String((+valueSelectMonth < 10) ? `0${valueSelectMonth}` : valueSelectMonth);
-            if(array[0] === valueSelectYear){
-               if(array[1] === month){
+            if(date[2] === valueSelectYear){
+               if(date[1] === month){
                    return el
                }
            }
-       });
+        });
        setArrayData(array);
     }, [changeTitle, valueSelectMonth, valueSelectYear])
 

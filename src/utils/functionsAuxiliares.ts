@@ -43,27 +43,14 @@ export const formatDate = (date: any ) => {
     return realDate;
 }
 
-export const formatCoin = (value : number, locale: string, currency: string) => {
+export const formatCoin = (value : number | string, locale: string, currency: string) => {
     currency = currency.toLocaleUpperCase();
-
-    return value.toLocaleString(locale, {style: 'currency', currency: currency})
-
-}
-
-export const formatNumber = (value: string | number) => {
-    let newValue = '';
-    if(typeof(value) == 'string'){
-        const valueString = parseFloat(value);
-        newValue = formatCoin(valueString, 'pt-br', 'brl');
-
-    }else if(typeof(value) === 'number'){
-         newValue = formatCoin(value, 'pt-br', 'brl');
-    }else{
-        newValue = '';
-    }
-
+    const newValue = (typeof(value) !== 'number') ? Number(value).toLocaleString(locale, { style: 'currency', currency: currency })
+        :
+        value.toLocaleString(locale, { style: 'currency', currency: currency })
+    ;
     return newValue;
-} 
+}
 
 export const addYear = (date: Date, list: any) => {
     if(date.getFullYear() > list[list.length - 1].value){

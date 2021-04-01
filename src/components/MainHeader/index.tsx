@@ -8,7 +8,7 @@ import emojis from '../../utils/emojis';
 
 
 const MainHeader: React.FC = () => {
-    const saldo = 1000;
+    const saldo = 10000;
     const emoji = useMemo(() =>{
         if(saldo <= 0){
             return emojis[2];

@@ -1,13 +1,18 @@
 import React from 'react';
 import { Container, TagColor, ContentMain, Title, Date, Amount } from './style';
 
-import { formatNumber } from '../../utils/functionsAuxiliares';
+import { formatCoin } from '../../utils/functionsAuxiliares';
 
 interface IHistoryComponentCardProps {
     frequency : string ;
     date: string | Date;
     title: string;
     amount: string | number
+}
+
+const coin = {
+    locale: 'pt-br',
+    currency: 'brl'
 }
 
 const HistoryComponentCard : React.FC<IHistoryComponentCardProps> = ({ frequency, date, title, amount }) => {
@@ -18,7 +23,7 @@ const HistoryComponentCard : React.FC<IHistoryComponentCardProps> = ({ frequency
                 <Title>{title}</Title>
                 <Date>{date}</Date>
             </ContentMain>
-            <Amount>{formatNumber(amount)}</Amount>
+            <Amount>{formatCoin(amount, coin.locale, coin.currency)}</Amount>
         </Container>
     );
 }
