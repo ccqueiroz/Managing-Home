@@ -4,27 +4,39 @@ import HistoryComponentCard from '../../components/HistoryComponentCard';
 
 import { Filters } from './style';
 
-import { formatTitle, filterType } from '../../utils/functionsAuxiliares';
+import { formatTitle, filterType, formatDate } from '../../utils/functionsAuxiliares';
 
-const arrayEntrada = [
-    {
-        title: 'Freela 1',
+import expenses from '../../repositories/expenses';
+import gains from '../../repositories/gains';
+
+export interface IArrayData {
+     
+        description: string;
+        date: string | Date;
+        frequency: boolean;
+        amount: number;
+}
+
+
+const arrayEntrada : IArrayData[] = [
+     {
+        description: 'Freela 1',
         date: '21/10/2020',
-        tagColor: 0,
+        frequency: false,
         amount: 106.56
 
     },
     {
-        title: 'Freela 2',
+        description: 'Freela 2',
         date: '21/10/2020',
-        tagColor: 1,
+        frequency: true,
         amount: 690.90
 
     },
     {
-        title: 'Freela 3',
+        description: 'Freela 3',
         date: '21/10/2020',
-        tagColor: 0,
+        frequency: true,
         amount: 690.90
 
     },
@@ -32,65 +44,65 @@ const arrayEntrada = [
 ]
 const arraySaida= [
     {
-        title: 'Conta de água',
+        description: 'Conta de água',
         date: '21/10/2020',
-        tagColor: 1,
+        frequency: true,
         amount: 0
 
     },
     {
-        title: 'Conta de Luz',
+        description: 'Conta de Luz',
         date: '21/10/2020',
-        tagColor: 0,
+        frequency: false,
         amount: 106.56
 
     },
     {
-        title: 'Conta de Supermercado',
+        description: 'Conta de Supermercado',
         date: '21/10/2020',
-        tagColor: 1,
+        frequency: false,
         amount: 690.90
 
     },
     {
-        title: 'Conta de Supermercado',
+        description: 'Conta de Supermercado',
         date: '21/10/2020',
-        tagColor: 0,
+        frequency: false,
         amount: 690.90
 
     },
     {
-        title: 'Conta de Supermercado',
+        description: 'Conta de Supermercado',
         date: '21/10/2020',
-        tagColor: 1,
+        frequency: true,
         amount: 690.90
 
     },
     {
-        title: 'Conta de Supermercado',
+        description: 'Conta de Supermercado',
         date: '21/10/2020',
-        tagColor: 0,
+        frequency: true,
         amount: 690.90
 
     },
     {
-        title: 'Conta de Supermercado',
+        description: 'Conta de Supermercado',
         date: '21/10/2020',
-        tagColor: 0,
+        frequency: true,
         amount: 690.90
 
     },
     {
-        title: 'Conta de Supermercado',
+        description: 'Conta de Supermercado',
         date: '21/10/2020',
-        tagColor: 1,
+        frequency: true,
         amount: 690.90
 
     },
     {
-        title: 'Conta de Supermercado',
+        description: 'Conta de Supermercado',
         date: '21/10/2020',
-        tagColor: 0,
+        frequency: true,
         amount: 690.90
 
     },
@@ -100,10 +112,12 @@ const arraySaida= [
 interface IListProps {
     match:{
         params: {
-            type: string
+            type: string //chave de acesso da rota /list/:type
         }
     }
 }
+
+
 
 const List : React.FC <IListProps>= ( match )  => {
     const [ stateFilter, setStateFilter ] = useState({
@@ -112,7 +126,7 @@ const List : React.FC <IListProps>= ( match )  => {
         all: true
     });
 
-    let changeTitle = match.match.params.type;
+    const changeTitle = match.match.params.type;
     const title = useMemo(()=>{
        return (formatTitle(changeTitle) === "Entrada") ? "Entrada" : "Saída" 
     }, [changeTitle]);
@@ -152,7 +166,7 @@ const List : React.FC <IListProps>= ( match )  => {
     const renderArrayData = (array: any) => {
         return array.map((e: any, index: number )=> {
             return (
-                <HistoryComponentCard key={index} title={e.title} date={e.date} tagColor={(e.tagColor) ? '#4E41F0' : '#E44C4E'} amount={e.amount}/>
+                <HistoryComponentCard key={index} title={e.description} date={formatDate(e.date)} frequency={(e.frequency) ? '#4E41F0' : '#E44C4E'}  amount={e.amount}/>
             );
         })
     }
@@ -163,15 +177,24 @@ const List : React.FC <IListProps>= ( match )  => {
             arrayReturn = renderArrayData(array)
         }else if(stateFilter.eventuais || stateFilter.recorrentes){
             if(stateFilter.eventuais && !stateFilter.recorrentes){
-                arrayReturn = renderArrayData(filterType(array, 1))
+                arrayReturn = renderArrayData(filterType(array, true))
             }else if(!stateFilter.eventuais && stateFilter.recorrentes){
-                arrayReturn = renderArrayData(filterType(array, 0))
+                arrayReturn = renderArrayData(filterType(array, false))
             }
         }   
     
        return arrayReturn;
     }
     
+    
+/* TESTE DE FUNÇÕES */
+
+const dateN = '2027-02-09';
+const dateN2 = new Date();
+formatDate(dateN2)
+formatDate(dateN)
+
+/* ----------------------------- */
     return (
         <React.Fragment>
             <ContentHeader title={title} lineColor={(title === 'Entrada') ? '#F7931B' : '#E44C4E'}/>
@@ -187,9 +210,9 @@ const List : React.FC <IListProps>= ( match )  => {
             </Filters>
             {
                 (title === 'Entrada') ?
-                    ArrayData(arrayEntrada)
+                    ArrayData(gains)
                     :
-                    ArrayData(arraySaida)
+                    ArrayData(expenses)
             }
         </React.Fragment>
     );

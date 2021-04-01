@@ -4,16 +4,16 @@ import { Container, TagColor, ContentMain, Title, Date, Amount } from './style';
 import { formatNumber } from '../../utils/functionsAuxiliares';
 
 interface IHistoryComponentCardProps {
-    tagColor: string;
+    frequency : string ;
     date: string | Date;
     title: string;
     amount: string | number
 }
 
-const HistoryComponentCard : React.FC<IHistoryComponentCardProps> = ({ tagColor, date, title, amount }) => {
+const HistoryComponentCard : React.FC<IHistoryComponentCardProps> = ({ frequency, date, title, amount }) => {
     return(
         <Container>
-            <TagColor color={tagColor}/>
+            <TagColor color={frequency}/>
             <ContentMain>
                 <Title>{title}</Title>
                 <Date>{date}</Date>
