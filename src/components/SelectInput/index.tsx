@@ -8,7 +8,7 @@ export interface ISelectInputProps {
         label?: string | number;
     }[],
     defaultMonth ?: string | number,
-    valueSelectedProp : Function
+    valueSelectedProp(event : React.ChangeEvent<HTMLSelectElement> ): void | undefined
 
 }
 
@@ -16,11 +16,11 @@ const SelectInput : React.FC<ISelectInputProps> = ({ options, defaultMonth, valu
 
         return(
             <Container>
-               <select onChange={ (e : any) => { valueSelectedProp(e) }}>
+               <select onChange={ (e : React.ChangeEvent<HTMLSelectElement> ) => { valueSelectedProp(e) }}>
                   {
-                      options.map(option => {
+                      options.map((option, index )=> {
                           return (
-                              <Option key={option.value} value={option.value} selected={(defaultMonth === option.value)} >{option.label}</Option>
+                              <Option key={index} value={option.value} selected={(String(defaultMonth) === option.value)} >{option.label}</Option>
                           );
                       })
                   }

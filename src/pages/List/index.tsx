@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useLayoutEffect } from 'react';
 import ContentHeader from '../../components/ContentHeader';
 
 import { Filters } from './style';
@@ -54,14 +54,13 @@ const List : React.FC <IListProps>= ( match )  => {
     }, [changeTitle]);
 
     /* populando a tela com filtro por Ano e mês -> ao carregar a tela */
-    useEffect(()=>{
+    useLayoutEffect (()=>{
+        console.log('render useLayoutEffect')
         const array = typeDataArray.filter((el : IArrayData) => {
             const date = formatDate(el.date).split('/');
             const month = String((+valueSelectMonth < 10) ? `0${valueSelectMonth}` : valueSelectMonth);
-            if(date[2] === valueSelectYear){
-               if(date[1] === month){
-                   return el
-               }
+            if(date[2] === valueSelectYear && date[1] === month){
+                return el;
            }
         });
         setArrayData(array);
@@ -72,10 +71,8 @@ const List : React.FC <IListProps>= ( match )  => {
         const array = typeDataArray.filter((el : IArrayData) => {
             const date = formatDate(el.date).split('/');
             const month = String((+valueSelectMonth < 10) ? `0${valueSelectMonth}` : valueSelectMonth);
-            if(date[2] === valueSelectYear){
-               if(date[1] === month){
-                   return el
-               }
+            if(date[2] === valueSelectYear && date[1] === month){
+                return el;
            }
         });
        setArrayData(array);

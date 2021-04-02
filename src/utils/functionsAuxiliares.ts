@@ -45,7 +45,8 @@ export const formatDate = (date: any ) => {
 
 export const formatCoin = (value : number | string, locale: string, currency: string) => {
     currency = currency.toLocaleUpperCase();
-    const newValue = (typeof(value) !== 'number') ? Number(value).toLocaleString(locale, { style: 'currency', currency: currency })
+    const newValue = (typeof(value) !== 'number') ? 
+        Number(value).toLocaleString(locale, { style: 'currency', currency: currency })
         :
         value.toLocaleString(locale, { style: 'currency', currency: currency })
     ;

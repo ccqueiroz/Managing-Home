@@ -60,6 +60,7 @@ export default [
     {"description":"Pizza",                 "amount":"60.00", "type":"saída","frequency":false,  "date":"2021-07-19"},
     {"description":"Pizza2",                 "amount":"60.00", "type":"saída","frequency":false,  "date":"2021-07-19"},
     {"description":"Pizza3",                 "amount":"60.00", "type":"saída","frequency":false,  "date":"2021-07-19"},
+    {"description":"Pizza3",                 "amount":"60.00", "type":"entrada","frequency":true,  "date":"2019-07-19"},
 
 
 
