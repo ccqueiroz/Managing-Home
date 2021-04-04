@@ -24,7 +24,7 @@ const App : React.FC = () => {
     }
 
     return (
-<Store changeTheme={changeToggleBoolean}>
+        <Store changeTheme={changeToggleBoolean}>
             <ThemeProvider theme={useTheme}>
                 <GlobalStyles/>
                 <Routes/>

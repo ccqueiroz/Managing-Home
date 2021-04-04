@@ -19,15 +19,18 @@ export const Container = styled.div<IBgColor>`
     box-shadow: 1px 3px 15px 1px rgb(0 0 0 / 30%);
 
     transition: all .3s;
+
+    overflow: hidden;
   
 
     > img{
+        width: 159px;
         position: absolute;
         top: 0;
         bottom: 0;
-        opacity: .3;
-        right: -30px;
-        height: inherit;
+        opacity: .2;
+        right: -50px;
+        height: 100%;
 
     }
 

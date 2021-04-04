@@ -1,9 +1,12 @@
 import React from 'react';
 import { Container, ContentCard, HeaderCard, FooterCard } from './style';
 
+import CountUp from 'react-countup';
+
 import Dolar from '../../assets/dollar.svg';
 import ArrowUp from '../../assets/arrow-up.svg';
 import ArrowDown from '../../assets/arrow-down.svg';
+
 import { formatCoin } from '../../utils/functionsAuxiliares';
 
 
@@ -19,17 +22,13 @@ const defaultType = ( typeDefault : string, value1: string, value2: string, valu
     switch(typeDefault){
         case('saldo'):
             return typeDefault = value1;
-            break;
         case('entrada'):
             return typeDefault = value2;
-            break;
         case('saida'):  
             return typeDefault = value3;
-            break;
         default:
             return typeDefault = defaultValue;
-            break;
-
+           
     }
 }
 const CardSaldo : React.FC<ICardSaldoProps>= ({ typeCard, amout, hours, date }) =>{
@@ -60,18 +59,19 @@ const CardSaldo : React.FC<ICardSaldoProps>= ({ typeCard, amout, hours, date }) 
 
     const saldoNegativo = {
         color:  '#db7230',
-        // color: '#E44C4E',
     }
     const saldoPositivo= {
         color: '#6ff542'
     }
     return(
         <Container color={bgColorCard(typeCard)}>
-            <img src={setImage(typeCard)}></img>
+            <img src={setImage(typeCard)} alt={typeCard}></img>
             <ContentCard>
                 <HeaderCard>
                     <span>{titleCard(typeCard)}</span>
-                    <h2 style={ (typeCard === "saldo") ? (amout < 0) ? saldoNegativo : saldoPositivo : {} }>{formatCoin(amout, 'pt-br', 'brl')}</h2>
+                    <h2 style={ (typeCard === "saldo") ? (amout < 0) ? saldoNegativo : saldoPositivo : {} }>
+                        <CountUp end={Number(amout)} prefix="R$" separator="." decimal="," decimals={2} duration={1.25}></CountUp>
+                    </h2>
                 </HeaderCard>
                 <FooterCard>
                     <span>{msgFooterCard(typeCard, date, hours)}</span>
