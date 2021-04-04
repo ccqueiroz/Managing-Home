@@ -28,6 +28,7 @@ export const Container = styled.div<IBgColor>`
         opacity: .3;
         right: -30px;
         height: inherit;
+
     }
 
     
@@ -50,13 +51,15 @@ export const ContentCard = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
+    z-index: 10;
 
     
 `;
 export const HeaderCard = styled.div`
     color: ${props => props.theme.colors.white};
     height: 70%;
-    width: 70%;
+    width: 100%;
     padding: 5px 18px ;
     display: flex;
     flex-direction: column;
@@ -71,7 +74,8 @@ export const HeaderCard = styled.div`
     > h2 {
         font-size: 30px;
         font-family: 'Inter', sans-serif;
-        font-weight: 800
+        font-weight: 800;
+
     }
 `;
 

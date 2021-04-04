@@ -13,7 +13,8 @@ export default {
 
         success: '#03BBB5',
         info: '#3B5998',
-        warning: '#FF6961'
+        warning: '#FF6961',
+        amoutPositive:'#3ad41c',
 
     },
 

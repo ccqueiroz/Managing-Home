@@ -12,9 +12,8 @@ const Toggle : React.FC = () => {
 
     const changeStatusToggle = () => {
         setStatusToggle(!statusToggle);
-        theme.setThemes();
+        theme.setTheme(true)
     }
-
 
     useEffect(()=>{
         setStatusToggle(false);

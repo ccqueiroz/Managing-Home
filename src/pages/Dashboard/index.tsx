@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { IArrayData } from '../List/index';
 
@@ -9,6 +9,7 @@ import ContentCardsFlex from '../../components/ContentCardsFlex';
 
 import master from '../../repositories/master';
 import {DefineTypeOut, populatingArrayByDate } from '../../utils/functionsAuxiliares'
+import { DataContext, dataThemes } from '../../providers/DataContext';
 
 // função genérica para definir valores de saldo | entrada | saída
 const defineBalance = (array : Array<IArrayData>, setState : React.Dispatch<React.SetStateAction<number>>, typeData : string) => {
@@ -39,6 +40,8 @@ const defineBalance = (array : Array<IArrayData>, setState : React.Dispatch<Reac
 } 
 const Dashboard : React.FC = () => {
     const dateCurrent = new Date();
+
+    const themes = useContext(DataContext);
 
     const array : Array<Array<IArrayData>> = []
     /* Hook dos arrays que serão modificados pelo BD */
@@ -84,6 +87,8 @@ const Dashboard : React.FC = () => {
             });
         }
 
+        themes.setSaldoCurrent((redE - redS))
+
         return redE - redS;
     }
     const currentSaldoEntradaFunc = () => {
@@ -103,6 +108,7 @@ const Dashboard : React.FC = () => {
     const valueSelecYearFunc = (e: any) => {
         setValueSelectYear(String(e.target.value));
     }
+
 
 
     return (

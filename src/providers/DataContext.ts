@@ -11,9 +11,18 @@ const themes = [
 
 export const dataThemes = {
         theme: themes,
-        setThemes: () =>{}
-    }
+        // setThemes: () =>{},
+        // saldoFunc: (n:number)=>{return n},
+        saldoCurrent: 0
+}
 
-export const DataContext = React.createContext(dataThemes);
+
+export const DataThemesProps ={
+    theme: dataThemes.theme,
+    saldoCurrent: dataThemes.saldoCurrent,
+    setTheme: (t: any) => {},
+    setSaldoCurrent: (s: any) => {}
+}
+export const DataContext = React.createContext(DataThemesProps);
 
 

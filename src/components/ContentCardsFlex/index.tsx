@@ -7,7 +7,6 @@ interface IContentCardsFlexProps {
     valueAmountEntrada : number | string;
     valueAmountSaida : number | string;
 }
- 
 const ContentCardsFlex : React.FC<IContentCardsFlexProps>= ( { valueAmountSaldo, valueAmountEntrada, valueAmountSaida } ) => {
 
     return(

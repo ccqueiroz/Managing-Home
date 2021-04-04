@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import { Container, Profile, Welcome, UserName, ToggleContainer } from './style';
 
@@ -6,32 +6,38 @@ import Toggle from '../Toggle/index';
 
 import emojis from '../../utils/emojis';
 
+import { DataContext } from '../../providers/DataContext';
 
-const MainHeader: React.FC = () => {
-    const saldo = 10000;
-    const emoji = useMemo(() =>{
-        if(saldo <= 0){
-            return emojis[2];
-        }else if(saldo > 0 && saldo <= 50){
-            return emojis[1];
-        }else if(saldo > 50 && saldo <= 100){
-            return emojis[4];
-        }else if(saldo > 100 && saldo <= 500){
-            return emojis[5];
-        }else if(saldo > 500 && saldo <= 1000){
-            return emojis[0];
-        }else if(saldo > 1000){
-            return emojis[3];
+
+const MainHeader : React.FC = () => {
+    const themes = useContext(DataContext);
+
+    const [saldoEmoji, setSaldoEmoji] = useState<Number>(0);
+    const [ Emoji, setEmoji] = useState<any>([]);
+
+    useEffect(()=>{
+        setSaldoEmoji(themes.saldoCurrent);
+        if(saldoEmoji <= 0){
+            return setEmoji(emojis[2]);
+        }else if(saldoEmoji > 0 && saldoEmoji <= 50){
+            return setEmoji(emojis[1]);
+        }else if(saldoEmoji > 50 && saldoEmoji <= 100){
+            return setEmoji(emojis[4]);
+        }else if(saldoEmoji > 100 && saldoEmoji <= 500){
+            return setEmoji(emojis[5]);
+        }else if(saldoEmoji > 500 && saldoEmoji <= 1000){
+            return setEmoji(emojis[0]);
+        }else if(saldoEmoji > 1000){
+            return setEmoji(emojis[3]);
         }
-    }, [])
-
-    return (
+    });
+        return (
         <Container>
             <ToggleContainer>
                 <Toggle></Toggle>
             </ToggleContainer>
             <Profile>
-                <Welcome><strong>Olá</strong>, {emoji}</Welcome>
+                <Welcome><strong>Olá</strong>, {Emoji}</Welcome>
                 <UserName>Caio Cezar de Queiroz</UserName>
             </Profile>
         </Container>

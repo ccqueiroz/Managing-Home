@@ -23,9 +23,8 @@ const App : React.FC = () => {
         settoggleBoolean(!toggleBoolean)
     }
 
-    console.log('render App...')
     return (
-        <Store changeTheme={changeToggleBoolean}>
+<Store changeTheme={changeToggleBoolean}>
             <ThemeProvider theme={useTheme}>
                 <GlobalStyles/>
                 <Routes/>

@@ -57,13 +57,21 @@ const CardSaldo : React.FC<ICardSaldoProps>= ({ typeCard, amout, hours, date }) 
             }
         }
     }
+
+    const saldoNegativo = {
+        color:  '#db7230',
+        // color: '#E44C4E',
+    }
+    const saldoPositivo= {
+        color: '#6ff542'
+    }
     return(
         <Container color={bgColorCard(typeCard)}>
             <img src={setImage(typeCard)}></img>
             <ContentCard>
                 <HeaderCard>
                     <span>{titleCard(typeCard)}</span>
-                    <h2>{formatCoin(amout, 'pt-br', 'brl')}</h2>
+                    <h2 style={ (typeCard === "saldo") ? (amout < 0) ? saldoNegativo : saldoPositivo : {} }>{formatCoin(amout, 'pt-br', 'brl')}</h2>
                 </HeaderCard>
                 <FooterCard>
                     <span>{msgFooterCard(typeCard, date, hours)}</span>

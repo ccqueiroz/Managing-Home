@@ -1,25 +1,37 @@
-import React, {  useContext } from 'react';
+import React, {  useContext, useState } from 'react';
 
-import { DataContext } from '../DataContext';
+import { DataContext, dataThemes } from '../DataContext';
 
 interface IDataContextProps{
     children: React.ReactNode;
-    changeTheme: Function
+    changeTheme: Function;
 }
 
 
 const Store : React.FC<IDataContextProps> = ({ children, changeTheme }) =>{
-    const themes = useContext(DataContext);
+    const [ state, setState ] = useState(dataThemes);
 
-    function updateState(){
+    function updateState(key:any, value:any){
+        /*
+            [theme] : theme[0] || theme[1]
+            [saldoCurrent] : value
+        */
+        setState({
+            ...state,
+            [key]:value
+        })
+    }
+    function updateTheme(){
         changeTheme();
     }
 
     return(
         <DataContext.Provider value={{
-            theme: themes.theme,
-            setThemes: () => updateState()
-        }}>
+            theme: state.theme,
+            saldoCurrent: state.saldoCurrent,
+            setTheme: t => updateTheme(),
+            setSaldoCurrent: (n:number) => updateState('saldoCurrent', n)
+            }}>
             {children}
         </DataContext.Provider>
     );
