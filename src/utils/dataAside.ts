@@ -6,20 +6,25 @@ export default [
         href: '/dashboard'
     },
     {
-        title: 'Entradas',
+        title: 'Supermercado',
         id: 2,
-        href: '/list/:entrada'
+        href: '/'
     },
     {
-        title: 'Saídas',
+        title: 'Entrada',
         id: 3,
-        href: '/list/:saida'
+        href: '/list/:entrada'
     },
 
     {
-        title: 'Sair',
+        title: 'Saída',
         id: 4,
+        href: '/list/:saida'
+    },
+    {
+        title: 'Sair',
+        id: 5,
         href: '#'
-    }
+    },
 
 ]

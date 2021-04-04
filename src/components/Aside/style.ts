@@ -57,6 +57,8 @@ export const MenuItemLink = styled.a`
         display: flex;
         align-items: end;
 
+        
+
         transition: opacity .3s;
 
         &:hover{

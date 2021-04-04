@@ -1,4 +1,5 @@
-import { IArrayData } from '../pages/List/index'
+import React, { useState } from 'react';
+import { IArrayData } from '../pages/List/index';
 
 export const listDayMonth = (list : any, date: Date) => {
     if((date.getMonth() + 1) === 2){
@@ -80,4 +81,21 @@ export const filterType = (array: Array<IArrayData>, value: boolean) => {
         return (e.frequency === value)
     })
     return x;
+}
+
+export const DefineTypeOut = (masterArray: Array<IArrayData>, title: string) => {
+        return masterArray.filter((e : IArrayData ) => {
+            return e.type === title.toLowerCase();
+        });
+}
+
+export const populatingArrayByDate = (masterArray: Array<IArrayData>, valueSelectMonth: string, valueSelectYear: string) => {
+    const array = masterArray.filter((el : IArrayData) => {
+        const date = formatDate(el.date).split('/');
+        const month = String((+valueSelectMonth < 10) ? `0${valueSelectMonth}` : valueSelectMonth);
+        if(date[2] === valueSelectYear && date[1] === month){
+            return el;
+       }
+    });
+   return array;
 }

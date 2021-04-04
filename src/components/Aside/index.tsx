@@ -6,7 +6,7 @@ import { Container, Header, LogoImg, MenuContainer, MenuItemLink, Title, TitleMe
 
 import logoImg from '../../assets/logo.svg';
 
-import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from 'react-icons/md';
+import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp, MdShoppingCart } from 'react-icons/md';
 
 
 import dataAside from '../../utils/dataAside';
@@ -15,7 +15,7 @@ import dataAside from '../../utils/dataAside';
 const Aside : React.FC = () => {
 
     const arrayImgMenuLink = [
-        <MdDashboard />, <MdArrowUpward />, <MdArrowDownward/>, <MdExitToApp />
+        <MdDashboard />, <MdShoppingCart />,<MdArrowUpward />, <MdArrowDownward/>, <MdExitToApp />
     ]
     
 
@@ -30,7 +30,7 @@ const Aside : React.FC = () => {
                 {
                     dataAside.map((element, index) => {
                         return (
-                            <Link to={element.href}>
+                            <Link to={element.href} style={{textDecoration: 'none'}}>
                                 <MenuItemLink key={element.id} href={element.href}>
                                     {arrayImgMenuLink[index]}
                                     <TitleMenuLink>{element.title}</TitleMenuLink>
