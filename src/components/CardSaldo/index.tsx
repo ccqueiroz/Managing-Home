@@ -61,7 +61,7 @@ const CardSaldo : React.FC<ICardSaldoProps>= ({ typeCard, amout, hours, date }) 
         color:  '#db7230',
     }
     const saldoPositivo= {
-        color: '#6ff542'
+        color: '#ffffff'
     }
     return(
         <Container color={bgColorCard(typeCard)}>

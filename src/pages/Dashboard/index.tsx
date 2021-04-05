@@ -6,10 +6,13 @@ import ContentHeader from '../../components/ContentHeader';
 import {Container} from './style';
 
 import ContentCardsFlex from '../../components/ContentCardsFlex';
+import ContainerSectionMsgBox from '../../components/ContainerSectionMsgBox';
+import  MensageBox from '../../components/MensageBox';
 
 import master from '../../repositories/master';
 import {DefineTypeOut, populatingArrayByDate } from '../../utils/functionsAuxiliares'
-import { DataContext, dataThemes } from '../../providers/DataContext';
+import { DataContext } from '../../providers/DataContext';
+import MsgSaldo from '../../components/MsgSaldo';
 
 // função genérica para definir valores de saldo | entrada | saída
 const defineBalance = (array : Array<IArrayData>, setState : React.Dispatch<React.SetStateAction<number>>, typeData : string) => {
@@ -115,8 +118,16 @@ const Dashboard : React.FC = () => {
         <Container>
             <ContentHeader title="Dashboard" lineColor="#4E41F0" valueSelectedMonth={valueSelectMonthFunc} valueSelectedYear={valueSelecYearFunc}></ContentHeader>
             <ContentCardsFlex valueAmountSaldo={saldo} valueAmountEntrada={saldoEntrada} valueAmountSaida={saldoSaida}/>
+            <ContainerSectionMsgBox>
+                <MensageBox><MsgSaldo amount={saldo}/></MensageBox>
+                <MensageBox>Gráfico</MensageBox>
+            </ContainerSectionMsgBox>
+            <ContainerSectionMsgBox>
+            <MensageBox>Gráfico Full</MensageBox>
+            </ContainerSectionMsgBox>
         </Container>
     );
 }
+
 
 export default Dashboard;
