@@ -19,8 +19,6 @@ interface IDataChartsProps{
 
 const PieCharts : React.FC<IPieChartsProps> = ({ amoutEntrada, amoutSaida }) => {
 
-    // const percentages = definePercentage(amoutEntrada, amoutSaida);
-    
     const [ dataCharts, setDataCharts] = useState<Array<IDataChartsProps>>([]);
 
     const definePercentage = useCallback((valueEntrada: number | string, valueSaida: number | string)=>{
@@ -61,10 +59,8 @@ const PieCharts : React.FC<IPieChartsProps> = ({ amoutEntrada, amoutSaida }) => 
             },
         ]);
 
-        console.log(dataCharts);
     }, [amoutEntrada, amoutSaida]);
 
-        console.log(dataCharts);
     return(
         <Container>
             <SideLeft>

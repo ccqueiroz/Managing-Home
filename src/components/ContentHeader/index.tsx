@@ -30,7 +30,7 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({ title, lineColor, valueS
         return years;
     }, [years]);
 
-    const uniqueYear = useMemo(()=>{ //inserir no value do option apenas os meses que possuam implementações
+    const uniqueYear = useMemo(()=>{ //inserir no value do option apenas os anos que possuam implementações
         let uniqueYearArray : Array<any> = []; 
         const arrayYears = master.map(e => {
             const y = String(new Date(e.date).getFullYear())

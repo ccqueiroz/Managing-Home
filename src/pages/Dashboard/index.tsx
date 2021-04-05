@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { IArrayData } from '../List/index';
 
@@ -14,6 +14,7 @@ import {DefineTypeOut, populatingArrayByDate } from '../../utils/functionsAuxili
 import { DataContext } from '../../providers/DataContext';
 import MsgSaldo from '../../components/MsgSaldo';
 import PieCharts from '../../components/PieCharts';
+import LineCharts from '../../components/LineCharts';
 
 // função genérica para definir valores de saldo | entrada | saída
 const defineBalance = (array : Array<IArrayData>, setState : React.Dispatch<React.SetStateAction<number>>, typeData : string) => {
@@ -113,21 +114,6 @@ const Dashboard : React.FC = () => {
         setValueSelectYear(String(e.target.value));
     }
 
-    const definePercentage = useCallback((valueEntrada: number | string, valueSaida: number | string)=>{
-        const vEntrada = Number(valueEntrada);
-        const vSaida = Number(valueSaida);
-    
-        const valueTotal = vEntrada + vSaida;
-    
-        const pEntrada = Math.round((vEntrada * 100) / valueTotal);
-        const pSaida = Math.round((vSaida * 100) / valueTotal);
-    
-        return {
-            pEntrada,
-            pSaida
-        }
-}, []);
-
     return (
         <Container>
             <ContentHeader title="Dashboard" lineColor="#4E41F0" valueSelectedMonth={valueSelectMonthFunc} valueSelectedYear={valueSelecYearFunc}></ContentHeader>
@@ -139,7 +125,9 @@ const Dashboard : React.FC = () => {
                 </MensageBox>
             </ContainerSectionMsgBox>
             <ContainerSectionMsgBox>
-            <MensageBox>Gráfico Full</MensageBox>
+            <MensageBox>
+                <LineCharts yearCurrent={valueSelectYear} arrayMaster={master}/>
+            </MensageBox>
             </ContainerSectionMsgBox>
         </Container>
     );
