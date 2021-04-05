@@ -7,7 +7,6 @@ import Dolar from '../../assets/dollar.svg';
 import ArrowUp from '../../assets/arrow-up.svg';
 import ArrowDown from '../../assets/arrow-down.svg';
 
-import { formatCoin } from '../../utils/functionsAuxiliares';
 
 
 interface ICardSaldoProps{

@@ -13,7 +13,6 @@ const MsgSaldo : React.FC<IMsgSaldoProps> = ({ amount }) =>{
 
     const msgMain = useMemo(() => {
         const saldo = Number(amount);
-        console.log(typeof(saldo))
         if(saldo === 0){
             return {
                 title:'Ops!',
@@ -34,7 +33,7 @@ const MsgSaldo : React.FC<IMsgSaldoProps> = ({ amount }) =>{
                 title:'Vixi!',
                 emoji: emojiSad,
                 mainMsg:'Sua carteira encontra-se com saldo negativo!',
-                msgFooter:'Priorize seus gastos. Gaste apenas com despesas estritamente cruciais'
+                msgFooter:'Priorize seus gastos. Gaste apenas com despesas estritamente cruciais.'
 
             };
         }

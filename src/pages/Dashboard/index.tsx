@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 
 import { IArrayData } from '../List/index';
 
@@ -13,6 +13,7 @@ import master from '../../repositories/master';
 import {DefineTypeOut, populatingArrayByDate } from '../../utils/functionsAuxiliares'
 import { DataContext } from '../../providers/DataContext';
 import MsgSaldo from '../../components/MsgSaldo';
+import PieCharts from '../../components/PieCharts';
 
 // função genérica para definir valores de saldo | entrada | saída
 const defineBalance = (array : Array<IArrayData>, setState : React.Dispatch<React.SetStateAction<number>>, typeData : string) => {
@@ -46,12 +47,12 @@ const Dashboard : React.FC = () => {
 
     const themes = useContext(DataContext);
 
-    const array : Array<Array<IArrayData>> = []
+    // const array : Array<Array<IArrayData>> = [];
     /* Hook dos arrays que serão modificados pelo BD */
-    const [ arrayData, setArrayData ] = useState<Array<IArrayData>>([]);
+    // const [ arrayData, setArrayData ] = useState<Array<IArrayData>>([]);
 
-    const [ arrayEntrada, setArrayEntrada ] = useState<Array<IArrayData>>([]);
-    const [ arraySaida, setArraySaida ] = useState<Array<IArrayData>>([]);
+    // const [ arrayEntrada, setArrayEntrada ] = useState<Array<IArrayData>>([]);
+    // const [ arraySaida, setArraySaida ] = useState<Array<IArrayData>>([]);
 
     const [ valueSelectMonth, setValueSelectMonth ] = useState<string>(String(dateCurrent.getMonth() + 1));
     const [ valueSelectYear, setValueSelectYear ] = useState<string>(String(dateCurrent.getFullYear()));
@@ -112,7 +113,20 @@ const Dashboard : React.FC = () => {
         setValueSelectYear(String(e.target.value));
     }
 
-
+    const definePercentage = useCallback((valueEntrada: number | string, valueSaida: number | string)=>{
+        const vEntrada = Number(valueEntrada);
+        const vSaida = Number(valueSaida);
+    
+        const valueTotal = vEntrada + vSaida;
+    
+        const pEntrada = Math.round((vEntrada * 100) / valueTotal);
+        const pSaida = Math.round((vSaida * 100) / valueTotal);
+    
+        return {
+            pEntrada,
+            pSaida
+        }
+}, []);
 
     return (
         <Container>
@@ -120,7 +134,9 @@ const Dashboard : React.FC = () => {
             <ContentCardsFlex valueAmountSaldo={saldo} valueAmountEntrada={saldoEntrada} valueAmountSaida={saldoSaida}/>
             <ContainerSectionMsgBox>
                 <MensageBox><MsgSaldo amount={saldo}/></MensageBox>
-                <MensageBox>Gráfico</MensageBox>
+                <MensageBox>
+                    <PieCharts amoutEntrada={saldoEntrada} amoutSaida={saldoSaida}/>
+                </MensageBox>
             </ContainerSectionMsgBox>
             <ContainerSectionMsgBox>
             <MensageBox>Gráfico Full</MensageBox>

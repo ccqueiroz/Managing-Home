@@ -12,6 +12,7 @@ interface IListCardsInputOutputProps {
 }
 
 const ListCardsInputOutput : React.FC <IListCardsInputOutputProps> = ({ arrayData }) => {
+    console.log(arrayData)
     return(
         <Container>
             {

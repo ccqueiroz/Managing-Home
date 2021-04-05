@@ -11,10 +11,10 @@ export const Container = styled.section`
 `;
 export const MsgMain = styled.section`
     height: 70%;
-    color: ${props => props.theme.colors.white}
+    color: ${props => props.theme.colors.white};
+    padding-top: 15px;
 `;
 export const MsgFooter = styled.section`
     height: 30%;
-    color: ${props => props.theme.colors.white}
-
+    color: ${props => props.theme.colors.white};
 `;
