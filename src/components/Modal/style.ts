@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-interface IImgInputNumber{
-    img:any;
+interface IImgInputNumber {
+    img: any;
 }
 export const Container = styled.div<IImgInputNumber>`
     width: 100%;
@@ -25,6 +25,7 @@ export const Container = styled.div<IImgInputNumber>`
         background-color: ${props => props.theme.colors.tertiary};
         border-radius: 15px;
     }
+
     > form > h2 {
         position: absolute;
         top: 15px;
@@ -65,28 +66,50 @@ export const Container = styled.div<IImgInputNumber>`
 
     form > .formulario > .labelForm{
         width: 90%;
-        height: 30px;
+        height: 40px;
         display: flex;
-        margin: 10px auto;
-        align-items: center;
+        margin: 8px auto;
+        flex-direction: column;
+        justify-content: center;
     } 
-    form > .formulario > .labelForm > span{
-        width: 90px;
-        color: ${props => props.theme.colors.white}
+    > form > .formulario > .labelForm > span.requiredEl{
+        opacity: 1!important;
     }
-    form > .formulario > .labelForm > input[type=text], input[type=number], input[type=date], select{
+    form > .formulario > .labelForm > span.formField_error {
+        color: ${props => props.theme.colors.warning};
+        font-size: 14px;
+        text-align: center;
+        margin-top: 5px;
+        opacity: 0;
+        transition: all .3s;
+    }
+    form > .formulario > .labelForm > .contentInput > span{
+        width: 90px;
+        color: ${props => props.theme.colors.white};
+    }
+    form > .formulario > .labelForm > .contentInput {
+        width:100%;
+        height: 20px;
+        display: flex;
+        /* margin: 10px auto; */
+        align-items: center;
+    }
+    form > .formulario > .labelForm > .contentInput > input[type=text], input[type=number], input[type=date], select{
         flex: 1;
         height: 28px;
         border-radius:5px;
         padding-left: 10px;
     }
-    form > .formulario > .labelForm > input[type=text]:focus, input[type=number]:focus, input[type=date]:focus, select:focus, input[type=checkbox]:focus{
+    form > .formulario > .labelForm > .contentInput > input[type=text]:focus, input[type=number]:focus, input[type=date]:focus, select:focus, input[type=checkbox]:focus{
         border: 2px solid ${props => props.theme.colors.info}
     }
-    form > .formulario > .labelForm > input[type=checkbox]{
+    form > .formulario > .labelForm.checkbox{
         align-self: center;
+        height: 10px;
+        margin-bottom: 15px;
+        
     }
-    form > .formulario > .labelForm > select > option{
+    form > .formulario > .labelForm > .contentInput > select > option{
         display: flex;
         justify-content: center;
     }

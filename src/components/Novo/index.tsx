@@ -7,7 +7,6 @@ interface INovoProps{
     changeModal: Function;
 }
 const Novo: React.FC<INovoProps> = ({ changeModal }) => {
-    const [stateModal, setStateModal] = useState(false);
 
     return (
         <Container>
