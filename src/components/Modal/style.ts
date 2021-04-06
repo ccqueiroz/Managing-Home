@@ -1,0 +1,112 @@
+import styled from 'styled-components';
+
+interface IImgInputNumber{
+    img:any;
+}
+export const Container = styled.div<IImgInputNumber>`
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 50%);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+
+    > form{
+        position: relative;
+        width: 400px;
+        height: 450px;
+        background-color: ${props => props.theme.colors.tertiary};
+        border-radius: 15px;
+    }
+    > form > h2 {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: ${props => props.theme.colors.white};
+        margin-top: 10px;
+    }
+
+    }
+    > form  > .btnModal{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        background-color: transparent;
+        color: ${props => props.theme.colors.white};
+        transition: all .3s;
+        
+
+    }
+    >form > .btnModal:hover{
+        opacity: .7;
+    }
+    > form > .btnModal:active{
+        transform: translateY(2px);
+    }
+    > form > .formulario{
+        width: 90%;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+        margin: 15% auto;
+        align-items: center;
+        padding: 20px 5px;
+
+    }
+
+    form > .formulario > .labelForm{
+        width: 90%;
+        height: 30px;
+        display: flex;
+        margin: 10px auto;
+        align-items: center;
+    } 
+    form > .formulario > .labelForm > span{
+        width: 90px;
+        color: ${props => props.theme.colors.white}
+    }
+    form > .formulario > .labelForm > input[type=text], input[type=number], input[type=date], select{
+        flex: 1;
+        height: 28px;
+        border-radius:5px;
+        padding-left: 10px;
+    }
+    form > .formulario > .labelForm > input[type=text]:focus, input[type=number]:focus, input[type=date]:focus, select:focus, input[type=checkbox]:focus{
+        border: 2px solid ${props => props.theme.colors.info}
+    }
+    form > .formulario > .labelForm > input[type=checkbox]{
+        align-self: center;
+    }
+    form > .formulario > .labelForm > select > option{
+        display: flex;
+        justify-content: center;
+    }
+    form > .formulario > button{
+        width: 150px;
+        height: 50px;
+        background-color: ${props => props.theme.colors.success};
+        margin: 30px auto;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: ${props => props.theme.colors.white};
+        transition: all .3s;
+    }
+
+    form > .formulario > button:hover{
+        opacity: .7;
+    }
+    form > .formulario > button:active{
+        transform: translateY(3px);
+    }
+
+`;

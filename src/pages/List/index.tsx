@@ -36,23 +36,26 @@ const List : React.FC <IListProps>= ( match )  => {
 
     /* Hook dos arrays que serão modificados pelo BD */
     const [ arrayData, setArrayData ] = useState<Array<IArrayData>>([]);
-
+    
     const [ valueSelectMonth, setValueSelectMonth ] = useState<string>(String(dateCurrent.getMonth() + 1));
     const [ valueSelectYear, setValueSelectYear ] = useState<string>(String(dateCurrent.getFullYear()));
-
+    
     /* Memo para verificação do tipó de tela que será entregue */
     const changeTitle = match.match.params.type;
     const title : string = useMemo(()=>{
-       return (formatTitle(changeTitle) === "Entrada") ? "Entrada" : "Saída" 
+        return (formatTitle(changeTitle) === "Entrada") ? "Entrada" : "Saída" 
     }, [changeTitle]);
-
+    
     /* separação dos dados por tipo -> entrada || saída */ 
     const typeDataArray =  useMemo<Array<IArrayData>>(()=>{
         return masterArray.filter((e : IArrayData ) => {
-            return e.type === title.toLowerCase();
+            if(title.toLocaleLowerCase() === 'saída'){
+                return e.type;
+            }else{
+                return e.type === title.toLowerCase();
+            }
         });
     }, [changeTitle]);
-
     /* populando a tela com filtro por Ano e mês -> ao carregar a tela */
     useLayoutEffect (()=>{
         console.log('render useLayoutEffect')

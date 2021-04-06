@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { ResponsiveContainer, LineChart, XAxis, YAxis, Line, Tooltip, Legend, CartesianGrid } from 'recharts';
+import { ResponsiveContainer, LineChart, XAxis, Line, Tooltip } from 'recharts';
 
 import { Container, MainBox, Charts, FlagBox } from './style';
 interface IDateCurrent {
@@ -9,34 +9,18 @@ interface IDateCurrent {
 }
 
 interface IDataArray {
-    data: {
         entrada: number | string,
         saida: number | string,
         month: string
-    }
-
-}
-
-const defineDate = (arrayData: Array<any>) => {
-    let uniqueYearArray: Array<any> = [];
-    const arrayYears = arrayData.map(e => {
-        const y = String(new Date(e.date).getFullYear())
-        return y;
-    }).forEach(item => {
-        if (!uniqueYearArray.includes(item)) {
-            uniqueYearArray.push(item)
-        }
-    });
-    return uniqueYearArray;
 }
 
 const LineCharts: React.FC<IDateCurrent> = ({ yearCurrent, arrayMaster }) => {
 
     const dataCharts = useMemo(() => {
         const Arraymonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', "Junho", "Julho","Agosto", "Setembro","Outubro", "Novembro","Dezembro"];
-        let data: Array<any> = [];
-        let dataEntrada :Array<any> = [0,0,0,0,0,0,0,0,0,0,0, 0];
-        const dataSaida :Array<any> = [0,0,0,0,0,0,0,0,0,0,0, 0];
+        let data: Array<IDataArray> = [];
+        let dataEntrada:Array<any> = [0,0,0,0,0,0,0,0,0,0,0, 0];
+        const dataSaida:Array<any> = [0,0,0,0,0,0,0,0,0,0,0, 0];
 
         const years = arrayMaster.filter(e => {
            const y = String(new Date(e.date).getFullYear());
@@ -70,7 +54,6 @@ const LineCharts: React.FC<IDateCurrent> = ({ yearCurrent, arrayMaster }) => {
         return data;
     }, [yearCurrent, arrayMaster]);
 
-    console.log(dataCharts)
     return (
         <Container>
             <MainBox>

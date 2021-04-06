@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { IArrayData } from '../List/index';
 
 import ContentHeader from '../../components/ContentHeader';
-import {Container} from './style';
+import {Container } from './style';
 
 import ContentCardsFlex from '../../components/ContentCardsFlex';
 import ContainerSectionMsgBox from '../../components/ContainerSectionMsgBox';
@@ -15,6 +15,8 @@ import { DataContext } from '../../providers/DataContext';
 import MsgSaldo from '../../components/MsgSaldo';
 import PieCharts from '../../components/PieCharts';
 import LineCharts from '../../components/LineCharts';
+import Novo from '../../components/Novo';
+import Modal from '../../components/Modal';
 
 // função genérica para definir valores de saldo | entrada | saída
 const defineBalance = (array : Array<IArrayData>, setState : React.Dispatch<React.SetStateAction<number>>, typeData : string) => {
@@ -48,19 +50,14 @@ const Dashboard : React.FC = () => {
 
     const themes = useContext(DataContext);
 
-    // const array : Array<Array<IArrayData>> = [];
-    /* Hook dos arrays que serão modificados pelo BD */
-    // const [ arrayData, setArrayData ] = useState<Array<IArrayData>>([]);
-
-    // const [ arrayEntrada, setArrayEntrada ] = useState<Array<IArrayData>>([]);
-    // const [ arraySaida, setArraySaida ] = useState<Array<IArrayData>>([]);
-
     const [ valueSelectMonth, setValueSelectMonth ] = useState<string>(String(dateCurrent.getMonth() + 1));
     const [ valueSelectYear, setValueSelectYear ] = useState<string>(String(dateCurrent.getFullYear()));
 
     const [ saldo, setSaldo ] = useState(0);
     const [ saldoEntrada, setSaldoEntrada ] = useState(0);
     const [ saldoSaida, setSaldoSaida ] = useState(0);
+
+    const [ modal, setModal ] = useState(false);
     
     useEffect(() =>{
         const currentSaldoEntrada = currentSaldoEntradaFunc();
@@ -114,6 +111,9 @@ const Dashboard : React.FC = () => {
         setValueSelectYear(String(e.target.value));
     }
 
+    const changeModal = () =>{
+        setModal(!modal);
+    }
     return (
         <Container>
             <ContentHeader title="Dashboard" lineColor="#4E41F0" valueSelectedMonth={valueSelectMonthFunc} valueSelectedYear={valueSelecYearFunc}></ContentHeader>
@@ -129,6 +129,10 @@ const Dashboard : React.FC = () => {
                 <LineCharts yearCurrent={valueSelectYear} arrayMaster={master}/>
             </MensageBox>
             </ContainerSectionMsgBox>
+            <Novo changeModal={changeModal}/>
+            {
+                (modal) ? <Modal changeModal={changeModal} typeModal="Adicionar"/> : null
+            }
         </Container>
     );
 }
