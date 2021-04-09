@@ -46,12 +46,12 @@ const defineBalance = (array : Array<IArrayData>, setState : React.Dispatch<Reac
     }
 } 
 const Dashboard : React.FC = () => {
-    const dateCurrent = new Date();
-
     const themes = useContext(DataContext);
+    console.log('dashboard')
+    console.log(themes.dateCurrent)
 
-    const [ valueSelectMonth, setValueSelectMonth ] = useState<string>(String(dateCurrent.getMonth() + 1));
-    const [ valueSelectYear, setValueSelectYear ] = useState<string>(String(dateCurrent.getFullYear()));
+    const [ valueSelectMonth, setValueSelectMonth ] = useState<string>(String(themes.dateCurrent.getMonth() + 1));
+    const [ valueSelectYear, setValueSelectYear ] = useState<string>(String(themes.dateCurrent.getFullYear()));
 
     const [ saldo, setSaldo ] = useState(0);
     const [ saldoEntrada, setSaldoEntrada ] = useState(0);
@@ -106,9 +106,12 @@ const Dashboard : React.FC = () => {
 
     const valueSelectMonthFunc = (e: any) => {
         setValueSelectMonth(String(e.target.value));
+        themes.setDate(Number(e.target.value), Number(valueSelectYear));
     }
     const valueSelecYearFunc = (e: any) => {
         setValueSelectYear(String(e.target.value));
+        themes.setDate(Number(valueSelectMonth), Number(e.target.value));
+
     }
 
     const changeModal = () =>{

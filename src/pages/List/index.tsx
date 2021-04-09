@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useMemo, useState, useLayoutEffect, useContext } from 'react';
 import ContentHeader from '../../components/ContentHeader';
 
 import { Filters } from './style';
@@ -7,6 +7,7 @@ import { formatTitle, filterType, formatDate  } from '../../utils/functionsAuxil
 
 import masterArray from '../../repositories/master';
 import ListCardsInputOutput from '../../components/listCardsInputOutput';
+import { DataContext } from '../../providers/DataContext';
 
 export interface IArrayData {
      
@@ -26,7 +27,10 @@ interface IListProps {
 }
 
 const List : React.FC <IListProps>= ( match )  => {
-    const dateCurrent = new Date();
+    const themes = useContext(DataContext);
+    console.log('list')
+    console.log(themes)//trocar dateCurrent por themes.dateCurrent
+    // const dateCurrent = new Date();
     /* Hook de filtro */
     const [ stateFilter, setStateFilter ] = useState({
         recorrentes: false,
@@ -37,8 +41,8 @@ const List : React.FC <IListProps>= ( match )  => {
     /* Hook dos arrays que serão modificados pelo BD */
     const [ arrayData, setArrayData ] = useState<Array<IArrayData>>([]);
     
-    const [ valueSelectMonth, setValueSelectMonth ] = useState<string>(String(dateCurrent.getMonth() + 1));
-    const [ valueSelectYear, setValueSelectYear ] = useState<string>(String(dateCurrent.getFullYear()));
+    const [ valueSelectMonth, setValueSelectMonth ] = useState<string>(String(themes.dateCurrent.getMonth() + 1));
+    const [ valueSelectYear, setValueSelectYear ] = useState<string>(String(themes.dateCurrent.getFullYear()));
     
     /* Memo para verificação do tipó de tela que será entregue */
     const changeTitle = match.match.params.type;
@@ -115,9 +119,12 @@ const List : React.FC <IListProps>= ( match )  => {
 
     const valueSelectMonthFunc = (e: any) => {
         setValueSelectMonth(String(e.target.value));
+        themes.setDate(Number(e.target.value), Number(valueSelectYear));
     }
     const valueSelecYearFunc = (e: any) => {
         setValueSelectYear(String(e.target.value));
+        themes.setDate(Number(valueSelectMonth), Number(e.target.value));
+
     }
 
     const ArrayData = (array: any) =>{

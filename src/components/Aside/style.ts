@@ -4,12 +4,14 @@ export const Container = styled.div`
     grid-area: ASIDE;
 
 
-    background-color: ${ props => props.theme.colors.secondary };
+    background-color: ${props => props.theme.colors.secondary};
 
-    border-right: 1px solid ${ props => props.theme.colors.gray };
+    border-right: 1px solid ${props => props.theme.colors.gray};
 
     display: flex;
     flex-direction: column;
+
+    box-shadow: 1px 3px 15px 1px rgb(0 0 0 / 30%);
 
 
 

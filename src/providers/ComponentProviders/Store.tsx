@@ -1,37 +1,49 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 
 import { DataContext, dataThemes } from '../DataContext';
 
-interface IDataContextProps{
+interface IDataContextProps {
     children: React.ReactNode;
     changeTheme: Function;
 }
 
 
-const Store : React.FC<IDataContextProps> = ({ children, changeTheme }) =>{
-    const [ state, setState ] = useState(dataThemes);
+const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
+    const [state, setState] = useState(dataThemes);
 
-    function updateState(key:any, value:any){
+    console.log(state)
+    function updateState(key: any, value: any) {
         /*
             [theme] : theme[0] || theme[1]
             [saldoCurrent] : value
         */
         setState({
             ...state,
-            [key]:value
+            [key]: value
         })
     }
-    function updateTheme(){
+    function setDateProvider(mes: number = state.date.getMonth() + 1, ano: number = state.date.getFullYear()) {
+        console.log('setDateProvider')
+        console.log(mes)
+        console.log(ano)
+        setState({
+            ...state,
+            date: new Date(`${Number(mes)}-1-${Number(ano)}`)
+        })
+    }
+    function updateTheme() {
         changeTheme();
     }
 
-    return(
+    return (
         <DataContext.Provider value={{
             theme: state.theme,
             saldoCurrent: state.saldoCurrent,
-            setTheme: t => updateTheme(),
-            setSaldoCurrent: (n:number) => updateState('saldoCurrent', n)
-            }}>
+            dateCurrent: state.date,
+            setTheme: _ => updateTheme(),
+            setSaldoCurrent: (n: number) => updateState('saldoCurrent', n),
+            setDate: (m: number, y: number) => setDateProvider(m, y)
+        }}>
             {children}
         </DataContext.Provider>
     );

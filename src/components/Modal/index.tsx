@@ -67,13 +67,21 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
         addressSchema.isValid(data).then(valid => {
             if (!valid) {
                 if (!data.description || data.description === "")
-                    setStatusErrorDescription(true)
+                    setStatusErrorDescription(true);
                 if (!data.amount || data.amount === "")
-                    setStatusErrorAmount(true)
+                    setStatusErrorAmount(true);
                 if (!data.type || data.type === "")
-                    setStatusErrorType(true)
+                    setStatusErrorType(true);
                 if (!data.date || data.date === "")
-                    setStatusErrorDate(true)
+                    setStatusErrorDate(true);
+
+
+                    setTimeout(()=>{
+                        setStatusErrorDescription(false);
+                        setStatusErrorAmount(false);
+                        setStatusErrorType(false);
+                        setStatusErrorDate(false);
+                    }, 5000)
             }else{
                 setStatusErrorDescription(false);
                 setStatusErrorAmount(false);
@@ -104,11 +112,7 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
                         frequency: false,
                         date: ''
                     }
-                    console.log(data)
-
                 }, 2000);
-                
-
             }
         });
 

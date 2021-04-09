@@ -7,5 +7,7 @@ export const Container = styled.section`
     min-height: 200px;
     margin: 0 30px;
     border-radius: 10px;
+
+    box-shadow: 1px 3px 15px 1px rgb(0 0 0 / 30%);
 `;
 

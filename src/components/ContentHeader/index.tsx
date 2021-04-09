@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import SelectInput from '../SelectInput';
 import { Container, TitleController, Controllers } from './style';
 
 import  master  from '../../repositories/master';
+import { DataContext } from '../../providers/DataContext';
 
 
 interface IContentHeaderProps {
@@ -14,21 +15,24 @@ interface IContentHeaderProps {
 
 const ContentHeader: React.FC<IContentHeaderProps> = ({ title, lineColor, valueSelectedMonth, valueSelectedYear }) => {
 
+    const themes = useContext(DataContext);
     const [month, setMonth] = useState(0);
 
     const [ years, setYears ] = useState(2018);
 
-    const date = new Date();
+    const [ date, setDate ] = useState(themes.dateCurrent);
 
     const monthCurrentValue = useMemo(() => {
-        setMonth(date.getMonth() + 1);
-        return month;
-    }, [month]);
+        setMonth(date.getMonth()+1);
+        themes.setDate(Number(month), Number(years));
+        return date.getMonth()+1;
+    }, [month, years]);
 
     const yearcurrentValue = useMemo(() => {
         setYears(date.getFullYear());
-        return years;
-    }, [years]);
+        themes.setDate(Number(month), Number(years));
+        return date.getFullYear();
+    }, [month, years]);
 
     const uniqueYear = useMemo(()=>{ //inserir no value do option apenas os anos que possuam implementações
         let uniqueYearArray : Array<any> = []; 
