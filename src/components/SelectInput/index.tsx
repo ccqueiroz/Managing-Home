@@ -14,8 +14,6 @@ export interface ISelectInputProps {
 
 const SelectInput: React.FC<ISelectInputProps> = ({ options, defaultMonth, valueSelectedProp }) => {
 
-    console.log('select')
-    console.log(defaultMonth)
     return (
         <Container>
             <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => { valueSelectedProp(e) }}>

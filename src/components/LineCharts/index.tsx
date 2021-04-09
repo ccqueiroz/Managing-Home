@@ -13,8 +13,11 @@ interface IDataArray {
         saida: number | string,
         month: string
 }
+interface ILineChartsProps {
+    supermarket: boolean;
+}
 
-const LineCharts: React.FC<IDateCurrent> = ({ yearCurrent, arrayMaster }) => {
+const LineCharts: React.FC<IDateCurrent & ILineChartsProps> = ({ yearCurrent, arrayMaster, supermarket }) => {
 
     const dataCharts = useMemo(() => {
         const Arraymonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', "Junho", "Julho","Agosto", "Setembro","Outubro", "Novembro","Dezembro"];
@@ -54,10 +57,17 @@ const LineCharts: React.FC<IDateCurrent> = ({ yearCurrent, arrayMaster }) => {
         return data;
     }, [yearCurrent, arrayMaster]);
 
+    const chartTitleType = (supermarket: boolean) => {
+        if(supermarket){
+            return 'Histórico de Compras do supermercado';
+        }else{
+            return 'Histórico de Saldo'
+        }
+    }
     return (
         <Container>
             <MainBox>
-                <h3>Histórico de saldo - Ano : {yearCurrent}</h3>
+                <h3>{chartTitleType(supermarket)} - Ano : {yearCurrent}</h3>
                 <div className="contentEntradaSaida">
                     <FlagBox type="entrada">
                         <span className="flag"></span><span className="text">Entradas</span>

@@ -128,9 +128,14 @@ const Dashboard : React.FC = () => {
                 </MensageBox>
             </ContainerSectionMsgBox>
             <ContainerSectionMsgBox>
-            <MensageBox>
-                <LineCharts yearCurrent={valueSelectYear} arrayMaster={master}/>
-            </MensageBox>
+                <MensageBox>
+                    <LineCharts yearCurrent={valueSelectYear} arrayMaster={master} supermarket={false}/>
+                </MensageBox>
+            </ContainerSectionMsgBox>
+            <ContainerSectionMsgBox> {/* gráfico para o supermercado */}
+                <MensageBox>
+                    <LineCharts yearCurrent={valueSelectYear} arrayMaster={master} supermarket={true}/>
+                </MensageBox>
             </ContainerSectionMsgBox>
             <Novo changeModal={changeModal}/>
             {

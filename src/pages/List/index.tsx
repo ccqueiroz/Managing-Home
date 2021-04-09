@@ -10,7 +10,7 @@ import ListCardsInputOutput from '../../components/listCardsInputOutput';
 import { DataContext } from '../../providers/DataContext';
 
 export interface IArrayData {
-     
+        id: number,
         description: string;
         date: string | Date;
         frequency: boolean;
@@ -25,12 +25,22 @@ interface IListProps {
         }
     }
 }
+const delItem = (id: number) => {
+    const item = masterArray.filter((e : IArrayData)=> {
+        return id === e.id;
+    });
 
+    console.log(item);
+}
+const editItem = (id: number) => {
+    const item = masterArray.filter((e : IArrayData)=> {
+        return id === e.id;
+    });
+
+    console.log(item);
+}
 const List : React.FC <IListProps>= ( match )  => {
     const themes = useContext(DataContext);
-    console.log('list')
-    console.log(themes)//trocar dateCurrent por themes.dateCurrent
-    // const dateCurrent = new Date();
     /* Hook de filtro */
     const [ stateFilter, setStateFilter ] = useState({
         recorrentes: false,
@@ -159,7 +169,7 @@ const List : React.FC <IListProps>= ( match )  => {
                     <span className="tag-eventuais"></span>
                 </button>
             </Filters>
-                <ListCardsInputOutput arrayData={ArrayData(arrayData)}/>
+                <ListCardsInputOutput arrayData={ArrayData(arrayData)} delItem={delItem} editItem={editItem}/>
          </React.Fragment>
     );
 }

@@ -23,9 +23,6 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
         })
     }
     function setDateProvider(mes: number = state.date.getMonth() + 1, ano: number = state.date.getFullYear()) {
-        console.log('setDateProvider')
-        console.log(mes)
-        console.log(ano)
         setState({
             ...state,
             date: new Date(`${Number(mes)}-1-${Number(ano)}`)

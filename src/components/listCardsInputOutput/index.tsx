@@ -8,16 +8,21 @@ import { formatDate } from '../../utils/functionsAuxiliares';
 
 
 interface IListCardsInputOutputProps {
-    arrayData: Array<IArrayData>
+    arrayData: Array<IArrayData>,
+    delItem : Function,
+    editItem: Function,
 }
 
-const ListCardsInputOutput : React.FC <IListCardsInputOutputProps> = ({ arrayData }) => {
+const ListCardsInputOutput : React.FC <IListCardsInputOutputProps> = ({ arrayData, delItem, editItem }) => {
     return(
         <Container>
             {
                 arrayData.map( ( e: IArrayData, index: number) => {
                     return(
-                        <HistoryComponentCard key={index} title={e.description} date={formatDate(e.date)} frequency={(e.frequency) ? '#4E41F0' : '#E44C4E'} amount={e.amount}/>
+                        <div>
+                            <HistoryComponentCard key={index} id={e.id} title={e.description} date={formatDate(e.date)} frequency={(e.frequency) ? '#4E41F0' : '#E44C4E'} amount={e.amount} delItem={delItem} editItem={editItem}/>
+                        </div>
+                        
                     );
                 } )
             }

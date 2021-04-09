@@ -5,6 +5,7 @@ interface ITagColorProps{
     color: string;
 }
 
+
 export const Container = styled.article`
     width: 90%;
     margin: 0 auto 20px auto;
@@ -24,6 +25,8 @@ export const Container = styled.article`
         opacity: .7;
 
     }
+
+
 `;
 export const TagColor = styled.div<ITagColorProps>`
     width: 5px;
@@ -39,6 +42,7 @@ export const ContentMain = styled.div`
     height: 100%;
     justify-content: center;
     color: ${props => props.theme.colors.white};
+    padding: 0 25px;
 `;
 
 export const Title = styled.span`
@@ -57,5 +61,30 @@ export const Amount = styled.h3`
     justify-content: flex-end;
     align-items: center;
     padding: 0 15px;
-    color: ${props => props.theme.colors.white}
+    color: ${props => props.theme.colors.white};
+`;
+
+export const Actions = styled.div`
+    width: 120px;
+    height: 100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+
+    > button{
+        background-color: transparent;
+        font-size: 24px;
+        transition: all .3s;
+    }
+    > button#edit{
+        color: ${props => props.theme.colors.info};
+    }
+    > button#del{
+        color: ${props => props.theme.colors.warning};
+    }
+    > button:hover{
+        opacity: .6;
+    }
+
 `;

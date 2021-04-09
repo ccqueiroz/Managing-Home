@@ -20,6 +20,7 @@ interface IModalProps {
 const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
 
     const [statusSubmit, setStatusSubmit] = useState({
+        id: 0,
         description: '',
         amount: '',
         type: '',
@@ -27,11 +28,11 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
         date: ''
     });
 
-    const [ statusErrorDescription, setStatusErrorDescription ] = useState(false);
-    const [ statusErrorAmount, setStatusErrorAmount ] = useState(false);
-    const [ statusErrorType, setStatusErrorType ] = useState(false);
-    const [ statusErrorDate, setStatusErrorDate ] = useState(false);
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [statusErrorDescription, setStatusErrorDescription] = useState(false);
+    const [statusErrorAmount, setStatusErrorAmount] = useState(false);
+    const [statusErrorType, setStatusErrorType] = useState(false);
+    const [statusErrorDate, setStatusErrorDate] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const addressSchema = yup.object().shape({
         description: yup.string().required(),
@@ -58,6 +59,7 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
         console.log('handle')
         e.preventDefault();
         let data = {
+            id: Math.floor(Math.random() * 1000000000),
             description: statusSubmit.description,
             amount: statusSubmit.amount.replace(',', '.'),
             type: statusSubmit.type,
@@ -76,13 +78,13 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
                     setStatusErrorDate(true);
 
 
-                    setTimeout(()=>{
-                        setStatusErrorDescription(false);
-                        setStatusErrorAmount(false);
-                        setStatusErrorType(false);
-                        setStatusErrorDate(false);
-                    }, 5000)
-            }else{
+                setTimeout(() => {
+                    setStatusErrorDescription(false);
+                    setStatusErrorAmount(false);
+                    setStatusErrorType(false);
+                    setStatusErrorDate(false);
+                }, 5000)
+            } else {
                 setStatusErrorDescription(false);
                 setStatusErrorAmount(false);
                 setStatusErrorType(false);
@@ -94,11 +96,12 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
                 setTimeout(() => {
                     console.log('interval')
                     console.log(data)
-                    setIsLoading(false); 
+                    setIsLoading(false);
                     changeModal();
                     master.push(data);
                     setStatusSubmit({
                         ...statusSubmit,
+                        id: 0,
                         description: '',
                         amount: '',
                         type: '',
@@ -106,6 +109,7 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
                         date: ''
                     });
                     data = {
+                        id: 0,
                         description: '',
                         amount: '',
                         type: '',
@@ -163,11 +167,11 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
                         <span className={`formField_error ${statusErrorDate ? "requiredEl" : ""}`}>This field is required</span>
                     </label>
                     {
-                        (isLoading === true) ? <Spiner/> 
-                        : 
-                        <button type="submit" id="btnSubmit" onClick={handleSubmit}>Salvar</button>                    
+                        (isLoading === true) ? <Spiner />
+                            :
+                            <button type="submit" id="btnSubmit" onClick={handleSubmit}>Salvar</button>
                     }
-                    
+
                 </div>
             </form>
         </Container>

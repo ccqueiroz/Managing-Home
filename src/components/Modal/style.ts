@@ -8,13 +8,11 @@ export const Container = styled.div<IImgInputNumber>`
     height: 100vh;
     position: fixed;
     background-color: rgba(0, 0, 0, 50%);
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(5px);
 
     z-index: 999;
 
