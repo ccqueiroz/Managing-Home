@@ -1,5 +1,4 @@
-import React, { ReactNode } from 'react';
-import MensageBox from '../MensageBox';
+import React from 'react';
 import { Container } from './style';
 
 interface IContainerSectionMsgBoxProps{
