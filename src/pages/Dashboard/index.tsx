@@ -47,8 +47,6 @@ const defineBalance = (array : Array<IArrayData>, setState : React.Dispatch<Reac
 } 
 const Dashboard : React.FC = () => {
     const themes = useContext(DataContext);
-    console.log('dashboard')
-    console.log(themes.dateCurrent)
 
     const [ valueSelectMonth, setValueSelectMonth ] = useState<string>(String(themes.dateCurrent.getMonth() + 1));
     const [ valueSelectYear, setValueSelectYear ] = useState<string>(String(themes.dateCurrent.getFullYear()));

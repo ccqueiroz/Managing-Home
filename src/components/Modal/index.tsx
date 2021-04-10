@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from './style';
 
 import { MdClose } from 'react-icons/md';
 
 import * as yup from 'yup';
+
+import { IArrayData } from '../../pages/List/index';
 
 import iconReal from '../../assets/moeda.svg';
 
@@ -14,10 +16,11 @@ import Spiner from '../Spiner';
 interface IModalProps {
     changeModal: Function;
     typeModal: string;
+    data?: IArrayData
 }
 
 
-const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
+const Modal: React.FC<IModalProps> = ({ changeModal, typeModal, data }) => {
 
     const [statusSubmit, setStatusSubmit] = useState({
         id: 0,
@@ -27,6 +30,22 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
         frequency: false,
         date: ''
     });
+
+    const verifyValuesInput = useEffect(() => {
+        if (typeModal === 'Editar') {
+            setStatusSubmit({
+                ...statusSubmit,
+                id: Number(data?.id),
+                description: String(data?.description),
+                amount: String(data?.amount),
+                type: String(data?.type),
+                frequency: Boolean(data?.frequency),
+                date: String(data?.date)
+            });
+
+            console.log(statusSubmit)
+        }
+    }, [changeModal]);
 
     const [statusErrorDescription, setStatusErrorDescription] = useState(false);
     const [statusErrorAmount, setStatusErrorAmount] = useState(false);
@@ -55,7 +74,7 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
         })
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmitAdd = (e: any) => {
         console.log('handle')
         e.preventDefault();
         let data = {
@@ -66,6 +85,7 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
             frequency: statusSubmit.frequency,
             date: statusSubmit.date
         }
+        console.log(data)
         addressSchema.isValid(data).then(valid => {
             if (!valid) {
                 if (!data.description || data.description === "")
@@ -121,6 +141,81 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
         });
 
     }
+    console.log(master)
+    const handleSubmitEdit = (e: any) => {
+        console.log('handleEdit')
+        e.preventDefault();
+        let data = {
+            id: statusSubmit.id,
+            description: statusSubmit.description,
+            amount: statusSubmit.amount.replace(',', '.'),
+            type: statusSubmit.type,
+            frequency: statusSubmit.frequency,
+            date: statusSubmit.date
+        }
+        addressSchema.isValid(data).then(valid => {
+            if (!valid) {
+                if (!data.description || data.description === "")
+                    setStatusErrorDescription(true);
+                if (!data.amount || data.amount === "")
+                    setStatusErrorAmount(true);
+                if (!data.type || data.type === "")
+                    setStatusErrorType(true);
+                if (!data.date || data.date === "")
+                    setStatusErrorDate(true);
+
+
+                setTimeout(() => {
+                    setStatusErrorDescription(false);
+                    setStatusErrorAmount(false);
+                    setStatusErrorType(false);
+                    setStatusErrorDate(false);
+                }, 5000);
+            } else {
+                setStatusErrorDescription(false);
+                setStatusErrorAmount(false);
+                setStatusErrorType(false);
+                setStatusErrorDate(false);
+
+                setIsLoading(true);
+                const index = master.findIndex(e => {
+                    return e.id === data.id
+                });
+                if(index > -1){
+                    // espera a resposta do backend para salvamento
+                    setTimeout(() => {
+                        master.splice(index, 1, data);
+                        setIsLoading(false);
+                        changeModal();
+                        setStatusSubmit({
+                            ...statusSubmit,
+                            id: 0,
+                            description: '',
+                            amount: '',
+                            type: '',
+                            frequency: false,
+                            date: ''
+                        });
+                        data = {
+                            id: 0,
+                            description: '',
+                            amount: '',
+                            type: '',
+                            frequency: false,
+                            date: ''
+                        }
+                    }, 2000);
+                    
+                    
+                }
+            }
+        });
+
+    }
+
+
+    // console.log(statusSubmit.frequency)
+
 
     return (
         <Container img={iconReal}>
@@ -131,14 +226,18 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
                     <label htmlFor="description" className="labelForm  text">
                         <div className="contentInput">
                             <span>Descrição</span>
-                            <input className="required" type="text" name="description" id="description" placeholder='Informe a descrição' onChange={e => handleInputChange(e, 'description')} required />
+                            <input className="required" type="text" name="description" id="description"
+                                placeholder='Informe a descrição' onChange={e => handleInputChange(e, 'description')}
+                                required value={statusSubmit.description} />
                         </div>
                         <span className={`formField_error ${statusErrorDescription ? "requiredEl" : ""}`}>This field is required</span>
                     </label>
                     <label htmlFor="amount" className="labelForm  text">
                         <div className="contentInput">
                             <span>Valor </span>
-                            <input className="required" type="text" name="amount" id="amount" placeholder="R$ 9.999,99" onChange={e => handleInputChange(e, 'amount')} required />
+                            <input className="required" type="text" name="amount" id="amount"
+                                placeholder="R$ 9.999,99" onChange={e => handleInputChange(e, 'amount')}
+                                required value={statusSubmit.amount} />
                         </div>
                         <span className={`formField_error ${statusErrorAmount ? "requiredEl" : ""}`} >This field is required</span>
                     </label>
@@ -146,9 +245,9 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
                         <div className="contentInput">
                             <span>Tipo</span>
                             <select name="type" id="type" onChange={e => handleInputChange(e, 'type')} required>
-                                <option selected disabled>Escolha o tipo</option>
-                                <option value="entrada" id="vEntrada">Entrada</option>
-                                <option value="saida" id="vSaida">Saída</option>
+                                <option selected={(typeModal !== "Editar") ? true : false} disabled>Escolha o tipo</option>
+                                <option selected={(typeModal === "Editar") ? (statusSubmit.type === 'entrada') ? true : false : false} value="entrada" id="vEntrada">Entrada</option>
+                                <option selected={(typeModal === "Editar") ? (statusSubmit.type === 'saida') ? true : false : false} value="saida" id="vSaida">Saída</option>
                             </select>
                         </div>
                         <span className={`formField_error ${statusErrorType ? "requiredEl" : ""}`}>This field is required</span>
@@ -156,20 +255,22 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal }) => {
                     <label htmlFor="frequency" className="labelForm checkbox">
                         <div className="contentInput">
                             <span>Frequente</span>
-                            <input type="checkbox" name="frequency" id="frequency" onChange={_ => handleCheckBox()} defaultChecked={statusSubmit.frequency} />
+                            <input type="checkbox" name="frequency" id="frequency" onChange={_ => handleCheckBox()}
+                                defaultChecked={statusSubmit.frequency} />
                         </div>
                     </label>
                     <label htmlFor="date" className="labelForm date">
                         <div className="contentInput">
                             <span>Data</span>
-                            <input type="date" name="date" id="date" onChange={e => handleInputChange(e, 'date')} required />
+                            <input type="date" name="date" id="date" onChange={e => handleInputChange(e, 'date')}
+                                required value={statusSubmit.date} />
                         </div>
                         <span className={`formField_error ${statusErrorDate ? "requiredEl" : ""}`}>This field is required</span>
                     </label>
                     {
                         (isLoading === true) ? <Spiner />
                             :
-                            <button type="submit" id="btnSubmit" onClick={handleSubmit}>Salvar</button>
+                            <button type="submit" id="btnSubmit" onClick={(typeModal === "Editar") ? handleSubmitEdit : handleSubmitAdd}>Salvar</button>
                     }
 
                 </div>
