@@ -15,6 +15,7 @@ import MensageBox from '../../components/MensageBox';
 
 const Supermarket: React.FC = () => {
     const themes = useContext(DataContext);
+    console.log('supermarket ->')
     console.log(themes)
     const [valueSelectMonth, setValueSelectMonth] = useState<string>(String(themes.dateCurrent.getMonth() + 1));
     const [valueSelectYear, setValueSelectYear] = useState<string>(String(themes.dateCurrent.getFullYear()));
@@ -39,17 +40,23 @@ const Supermarket: React.FC = () => {
                 <CardTotalValueForMonthSupermarket bgColor="#4E41F0" monthCurrent={false} />
                 <CardTotalValueForMonthSupermarket bgColor="#3ad41c" monthCurrent={true} />
             </ContainerSectionMsgBox>
+            {/* <button onClick={e=> themes.setShowButton(e, 'close')}>FECHAR MODAL</button> */}
             <ContainerSectionMsgBox>
-                <MensageBox>
-                    <ContentHeaderCardBox>Controle seus gastos com as compras de supermercado. 
-                        <p>Você pode criar uma lista de compras, usá-la quando for ao supermercado para não esquecer nenhum item e controlar o quanto está gastando por mês com comida.</p>
-                    </ContentHeaderCardBox>
-                    <ButtonsCardSupermarket>
-                        <button style={{backgroundColor: '#4E41F0'}}>Criar Lista</button>
-                        <button style={{backgroundColor: '#F7931B'}}>Ir às Compras</button>
-                        <button style={{backgroundColor: '#3ad41c'}}>Comprar itens Cotidianos</button>
-                    </ButtonsCardSupermarket>
-                </MensageBox>
+                {
+                    !themes.asideShowButtons.showModal ? 
+                        <MensageBox>
+                            <ContentHeaderCardBox>Controle seus gastos com as compras de supermercado. 
+                                <p>Você pode criar uma lista de compras, usá-la quando for ao supermercado para não esquecer nenhum item e controlar o quanto está gastando por mês.</p>
+                            </ContentHeaderCardBox>
+                            <ButtonsCardSupermarket>
+                                <button onClick={e => themes.setShowButton(e)} id="newList" style={{backgroundColor: '#4E41F0'}}>Criar Lista</button>
+                                <button onClick={e => themes.setShowButton(e)} id="purchase" style={{backgroundColor: '#E44C4E'}}>Ir às Compras</button>
+                                <button onClick={e => themes.setShowButton(e)} id="buySingle" style={{backgroundColor: '#3ad41c'}}>Comprar itens Avulsos</button>
+                            </ButtonsCardSupermarket>
+                        </MensageBox>
+                        :
+                        <MensageBox>Mudar modal</MensageBox>
+                }
             </ContainerSectionMsgBox>
         </Container>
     );

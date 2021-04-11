@@ -32,7 +32,7 @@ export const Header = styled.header`
 
 export const Title = styled.h1`
     font-size: 1.1rem;
-    color: ${props => props.theme.colors.white}
+    color: ${props => props.theme.colors.white};
 
 `;
 
@@ -72,6 +72,30 @@ export const MenuItemLink = styled.a`
         }
 
        
+`;
+export const ContainerSubMenu = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: flex-start;
+    left: 23%;
+    transition: all .3s;
+
+    >button{
+        background-color: transparent;
+        margin: 5px;
+        font-size: .9rem;
+        display: flex;
+        align-items: center;
+        transition: all .3s;
+    }
+    >button:hover{
+        opacity: .7;
+    }
+`;
+export const Img = styled.div`
+    font-size: 1.1rem;
 `;
 
 export const TitleMenuLink = styled.span`

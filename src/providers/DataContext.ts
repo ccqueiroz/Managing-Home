@@ -12,10 +12,14 @@ const date = new Date();
 
 export const dataThemes = {
         theme: themes,
-        // setThemes: () =>{},
-        // saldoFunc: (n:number)=>{return n},
         saldoCurrent: 0,
-        date: date
+        date: date,
+        asideShowButtons: {
+            showModal: false,
+            newList: false,
+            purchase: false,
+            buySingle: false
+        }
 }
 console.log('teste DataContext')
 console.log(dataThemes.date)
@@ -24,9 +28,11 @@ export const DataThemesProps ={
     theme: dataThemes.theme,
     saldoCurrent: dataThemes.saldoCurrent,
     dateCurrent: dataThemes.date,
+    asideShowButtons: dataThemes.asideShowButtons,
     setTheme: (t: any) => {},
     setSaldoCurrent: (s: any) => {},
-    setDate: (m:number, y: number) => {}
+    setDate: (m:number, y: number) => {},
+    setShowButton: (s:any, index?:any) => {},
 }
 export const DataContext = React.createContext(DataThemesProps);
 
