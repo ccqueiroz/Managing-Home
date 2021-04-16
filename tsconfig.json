@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "node_modules/@types/react-table/react-table-config.d.ts"  ]
 }

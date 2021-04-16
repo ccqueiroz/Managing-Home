@@ -8,7 +8,7 @@ export const Container = styled.div`
     > select{
         width:100%;
         padding: 7px 10px;
-        border-radius:5px;
+        border-radius:10px;
         outline: none;
     };
 `;

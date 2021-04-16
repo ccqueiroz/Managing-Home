@@ -16,7 +16,7 @@ const MainHeader : React.FC = () => {
     const [ Emoji, setEmoji] = useState<any>([]);
 
     useEffect(()=>{
-        setSaldoEmoji(themes.saldoCurrent);
+        setSaldoEmoji(themes.saldoCurrent)
         if(saldoEmoji <= 0){
             return setEmoji(emojis[2]);
         }else if(saldoEmoji > 0 && saldoEmoji <= 50){
@@ -30,7 +30,7 @@ const MainHeader : React.FC = () => {
         }else if(saldoEmoji > 1000){
             return setEmoji(emojis[3]);
         }
-    });
+    }, [themes, saldoEmoji]);
         return (
         <Container>
             <ToggleContainer>

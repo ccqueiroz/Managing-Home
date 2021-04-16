@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { Container, ContentHeaderCardBox, ButtonsCardSupermarket } from './style';
 
 import ContentHeader from '../../components/ContentHeader';
@@ -10,6 +10,7 @@ import ContainerSectionMsgBox from '../../components/ContainerSectionMsgBox';
 import { DataContext } from '../../providers/DataContext';
 import CardTotalValueForMonthSupermarket from '../../components/CardTotalValueForMonthSupermarket/indext';
 import MensageBox from '../../components/MensageBox';
+import ModalsMainSupermarket from '../../components/ModalsMainSupermarket';
 
 
 
@@ -30,8 +31,27 @@ const Supermarket: React.FC = () => {
 
     }
 
+    const modalCurrent:number = useMemo(()=>{
+        if(themes.asideShowButtons.showModal 
+            && !themes.asideShowButtons.newList && themes.asideShowButtons.purchase 
+            && themes.asideShowButtons.buySingle){
+                return 0
+        }else if(themes.asideShowButtons.showModal 
+            && themes.asideShowButtons.newList && !themes.asideShowButtons.purchase 
+            && themes.asideShowButtons.buySingle){
+                return 1
+
+        }else if(themes.asideShowButtons.showModal 
+            && themes.asideShowButtons.newList && themes.asideShowButtons.purchase 
+            && !themes.asideShowButtons.buySingle){
+                return 2
+        }else{
+            return -1
+        }
+    }, [themes.asideShowButtons]);
 
 
+    console.log(modalCurrent)
 
     return (
         <Container>
@@ -40,7 +60,6 @@ const Supermarket: React.FC = () => {
                 <CardTotalValueForMonthSupermarket bgColor="#4E41F0" monthCurrent={false} />
                 <CardTotalValueForMonthSupermarket bgColor="#3ad41c" monthCurrent={true} />
             </ContainerSectionMsgBox>
-            {/* <button onClick={e=> themes.setShowButton(e, 'close')}>FECHAR MODAL</button> */}
             <ContainerSectionMsgBox>
                 {
                     !themes.asideShowButtons.showModal ? 
@@ -55,7 +74,10 @@ const Supermarket: React.FC = () => {
                             </ButtonsCardSupermarket>
                         </MensageBox>
                         :
-                        <MensageBox>Mudar modal</MensageBox>
+                        <MensageBox>
+                            <ModalsMainSupermarket/>
+                        </MensageBox>
+
                 }
             </ContainerSectionMsgBox>
         </Container>
