@@ -47,9 +47,9 @@ const Aside: React.FC = () => {
                 {
                     dataAside.map((element, index) => {
                         return (
-                            <div className="div">
+                            <div className="div" key={element.id}>
                                 <Link to={element.href} style={{ textDecoration: 'none' }}>
-                                    <MenuItemLink key={element.id} href={element.href}>
+                                    <MenuItemLink  href={element.href}>
                                         {arrayImgMenuLink[index]}
                                         <TitleMenuLink>{element.title}</TitleMenuLink>
                                     </MenuItemLink>

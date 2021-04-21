@@ -7,15 +7,35 @@ interface IArrayListProps {
     und: any;
     amount: any;
 }
-interface ISelectOption{
+interface ISelectOption {
     value: number,
     label: string
 }
 interface IDateForm {
     description: string,
     und: ISelectOption,
-    amount: number;
+    amount: number,
+
 }
+
+const columnsNewlist = [
+    {
+        Header: 'Produto',
+        accessor: 'description'
+    },
+    {
+        Header: 'Medida',
+        accessor: 'und.label'
+    },
+    {
+        Header: 'Quantidade',
+        accessor: 'amount'
+    },
+    {
+        Header: 'Ações',
+        accessor: 'action'
+    }
+];
 
 
 const ModalNewListSupermarket: React.FC = () => {
@@ -25,10 +45,69 @@ const ModalNewListSupermarket: React.FC = () => {
             value: 9999,
             label: ''
         },
-        amount: 0
+        amount: 0,
+
     });
-    const [ nameList, setNameList ] = useState<string>('');
-    const [ arrayList, setArrayList ] = useState<Array<IDateForm>>([]);
+    const [nameList, setNameList] = useState<string>('');
+    const [arrayList, setArrayList] = useState<Array<IDateForm>>([
+        {
+            description: 'Leite',
+            und: {
+                value: 0, label: 'Litro'
+            },
+            amount: 12,
+
+        },
+        {
+            description: 'Ovos',
+            und: {
+                value: 0, label: 'und'
+            },
+            amount: 12,
+
+        },
+        {
+            description: 'Carne',
+            und: {
+                value: 0, label: 'kg'
+            },
+            amount: 12,
+
+        },
+        {
+            description: 'Frango',
+            und: {
+                value: 0, label: 'kg'
+            },
+            amount: 12,
+
+        },
+        {
+            description: 'Óleo',
+            und: {
+                value: 0, label: 'kg'
+            },
+            amount: 12,
+
+        },
+        {
+            description: 'Macarrão',
+            und: {
+                value: 0, label: 'kg'
+            },
+            amount: 12,
+
+        },
+        {
+            description: 'Farinha',
+            und: {
+                value: 0, label: 'kg'
+            },
+            amount: 12,
+
+        },
+
+    ]);
 
     const optionsSelect = useMemo(() => {
         return [
@@ -50,14 +129,14 @@ const ModalNewListSupermarket: React.FC = () => {
             },
         ];
     }, []);
-    
+
     const handleInput = (e: any, key: string) => {
-        if(key === 'amount' && Number(e.target.value) < 0){
+        if (key === 'amount' && Number(e.target.value) < 0) {
             setDataForm({
                 ...dataForm,
                 amount: 0
             })
-        }else{
+        } else {
             setDataForm({
                 ...dataForm,
                 [key]: e.target.value
@@ -68,6 +147,7 @@ const ModalNewListSupermarket: React.FC = () => {
     const handleTitle = (e: any) => {
         setNameList(e.target.value);
     }
+
     const handleSelect = (e: any) => {
         console.log(e.target.value)
         const option = optionsSelect.filter(op => {
@@ -86,10 +166,18 @@ const ModalNewListSupermarket: React.FC = () => {
             ...arrayList,
             dataForm
         ]);
+        setDataForm({
+            description: '',
+            und: {
+                value: 9999, label: ''
+            },
+            amount: 0,
+        })
     }
+
     const onSubmit = (e: any) => {
         e.preventDefault();
-        const data = {
+        let data = {
             title: nameList,
             list: arrayList
         }
@@ -97,21 +185,28 @@ const ModalNewListSupermarket: React.FC = () => {
         console.log(data)
         //fazer post para o banco 
     }
+    const edit = (row:IDateForm) => {
+        console.log(row)
+    }
+    const trash = (row: IDateForm) => {
+        console.log(row)
+    }
+
     return (
         <Container>
             <Header>
                 <h2>Lista de Compras</h2>
                 <label className="titleList">
                     <h3>Nome da Lista</h3>
-                    <input type="text" name="titleList" value={nameList} onChange={handleTitle}/>
-                    <button type="button" onClick={e=> onSubmit(e)}>Salvar Lista</button>
+                    <input type="text" name="titleList" value={nameList} onChange={handleTitle} />
+                    <button type="button" onClick={e => onSubmit(e)}>Salvar Lista</button>
                 </label>
                 <form action="" onSubmit={addItemList}>
                     <div className="headerTable">
                         <span data-span="1">Descrição</span>
                         <input className="inputs" type="text" data-input="1" value={dataForm.description} onChange={e => handleInput(e, 'description')} />
                         <span data-span="2">Unidade</span>
-                        <select className="select" onChange={e=> handleSelect(e)}>
+                        <select className="select" onChange={e => handleSelect(e)}>
                             <option data-option='0' value={9999} selected disabled></option>
                             {optionsSelect.map((item: any, index: number) => {
                                 return (
@@ -126,27 +221,31 @@ const ModalNewListSupermarket: React.FC = () => {
                 </form>
             </Header>
             <ContentTable>
-                { arrayList.length > 0 ? 
-                <div className="contentTable">
-                    <p>Lembre-se de salvar sua lista antes de sair da página</p>
-                    {/* usar Table */}
-                    <Table/> 
-                    {arrayList.map((e:IDateForm, index:number) => {
-                        return (
-                            <div key={index}>
-                                <span>{e.description}</span>
-                                <span>-</span> 
-                                <span>{e.und.label}</span>
-                                <span>-</span> 
-                                <span>{e.amount}</span>
-                            </div>
-    
-                        );
-                    })}
-                </div>
-                :
-                null
-            }
+                {arrayList.length > 0 ?
+                    <div className="contentTable">
+                        <p>Lembre-se de salvar sua lista antes de sair da página</p>
+                        {/* usar Table */}
+                        <Table
+                            dataProps={arrayList}
+                            columnsProps={columnsNewlist}
+                            actions={{
+                                edit: (row: IDateForm) => {
+                                    //fazer método de editar
+                                    edit(row)
+                                },
+                                trash: (id: IDateForm) => {
+                                    //fazer método de excluir
+                                    console.log('trash Id -> ')
+                                    console.log(id)
+                                },
+
+                            }}
+
+                        />
+                    </div>
+                    :
+                    null
+                }
             </ContentTable>
         </Container>
     );

@@ -121,10 +121,29 @@ export const Header = styled.div`
     > form > .headerTable > .inputs:focus{
         border: 1px solid ${props => props.theme.colors.warning};
     }
-    
-
 `;
 export const ContentTable = styled.div`    
     width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    padding: 20px 5px;
+
+    > .contentTable {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        > p {
+            color: ${props => props.theme.colors.white};
+            font-size: 16px;
+            opacity: .6;
+            margin-bottom: 10px;
+        }
+    }
 `;
 

@@ -1,0 +1,52 @@
+.table {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+}
+
+.th {
+    height: 35px !important;
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.td {
+    padding: 10px !important;
+    border-bottom: 1px solid gray !important;
+    cursor: pointer;
+    color: white !important;
+}
+
+.actions {
+    text-align: center !important;
+    margin: 0 auto !important;
+
+}
+
+.itemsActions {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.tr {
+    transition: all .3s;
+}
+
+.tr:hover {
+    opacity: .6;
+}
+
+.FiEdit,
+.FiTrash {
+    transition: all .3s !important;
+}
+
+.FiEdit {
+    color: #F7931B !important;
+}
+
+.FiTrash {
+    color: #E44C4E !important;
+}

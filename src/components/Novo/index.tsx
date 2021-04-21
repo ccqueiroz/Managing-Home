@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Alt } from './style';
 
 import { FaPlus } from 'react-icons/fa';
