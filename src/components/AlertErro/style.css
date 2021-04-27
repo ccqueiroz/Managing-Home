@@ -1,0 +1,33 @@
+ .alertErro{
+    width:350px;
+    height: 70px;
+    background-color: #e74c3c;
+    border-radius: 10px;
+    box-shadow: 0px 2px 9px -1px rgba(0,0,0,0.7);
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -100vh;
+
+    transition: all 1s;
+}
+
+ .alertErro > .buttonErro{
+    width: 20px;
+    height: 20px;
+    outline:none;
+    background: transparent;
+    margin-right: 10px;
+    margin-top: -6px;
+    
+}
+.error{
+    top: 30px;
+}

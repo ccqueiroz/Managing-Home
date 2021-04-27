@@ -7,6 +7,7 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     margin: 25px 30px 0px -20px;
+    position: absolute;
     
 
     @keyframes spin{

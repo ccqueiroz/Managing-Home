@@ -1,39 +1,9 @@
 import styled from 'styled-components';
 
-
-export const Container = styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
-`;
-export const ContentForm = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    box-shadow: 3px 0px 10px 0px rgba(116,119,222,0.7);
-    background: linear-gradient(to right top, #5355d0, #695fd9, #7d68e3, #9173ec, #a37df6);
-`;
-export const LoginImage = styled.div`
-    width: 100%;
-    height: 100%;
-
-    > img{
-        width: 100%;
-        height: 100%;
-    }
-
-    @media(max-width: 910px){
-        display: none;
-    }
-`;
 export const FormSignIn = styled.form`
     width:95%;
     max-width: 380px;
-    height: 370px;
+    height: 410px;
     margin: 0 auto;
     display:flex;
     flex-direction: column;
@@ -57,7 +27,7 @@ export const FormSignIn = styled.form`
         margin-top: 10px;
     }
     >.credentials{
-        width: 62%;
+        width: 75%;
         display: flex;
         justify-content: space-between;
         padding: 0 10px;
@@ -88,6 +58,8 @@ export const FormSignIn = styled.form`
         font-size: 18px;
         font-weight: bold;
 
+        position: relative;
+
         transition: all .3s;
     }
 
@@ -95,18 +67,17 @@ export const FormSignIn = styled.form`
         opacity: .7;
     }
 
-    @media(max-width: 800px){
-        .credentials{
-            width: 53%;
-        }
-    }
     @media(max-width: 450px){
+        height: 500px;
         .credentials{
            flex-direction: column;
            align-items: center;
         }
     }
     @media(max-width: 380px){
+        h1{
+            font-size: 30px;
+        }
         h2{
             margin-bottom: 15px;
         }
@@ -114,51 +85,10 @@ export const FormSignIn = styled.form`
             height: 45px;
         }
     }
-
-`;
-
-export const Label = styled.label`
-    width: 90%;
-    max-width: 300px;
-    height: 60px;
-    margin-bottom: 5px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-
-    > .spanLabel{
-        position: absolute;
-        top: 35px;
-        left: 20px;
-        transition: all .3s;
-
-        color: #e1e1e6;
-    }
-
-    .spanFocus{
-        top: 10px;
-    }
-
-    @media(max-width: 800px){
-        .spanLabel{
-            left: 17px;
+    @media(max-width: 340px){
+        h1{
+            font-size: 25px;
         }
-    }
-
-`;
-export const Input = styled.input`
-    width: 90%;
-    height: 30px;
-    background-color: transparent;
-    border-bottom: 2px solid #e1e1e6;
-    outline: none;
-    padding: 0 5px;
-
-    color: #e1e1e6;
-
-    @media(max-width: 1040px){
-        
     }
 
 `;
