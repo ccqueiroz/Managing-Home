@@ -11,13 +11,14 @@ import Supermarket from '../pages/Supermarket';
 const AppRoutes : React.FC = () =>{
     return(
         <BrowserRouter>
-            <Layout>
                 <Switch>
-                    <Route path="/dashboard" exact component={Dashboard}/>
-                    <Route path="/list/:type" exact component={List}/>
-                    <Route path="/" exact component={Supermarket} />
+                    <Route path="/" exact component={SignIn} />
+                    <Layout>
+                        <Route path="/dashboard" exact component={Dashboard}/>
+                        <Route path="/list/:type" exact component={List}/>
+                        <Route path="/supermarket" exact component={Supermarket}/>
+                    </Layout>
                 </Switch>
-            </Layout>
         </BrowserRouter>
     );
 }

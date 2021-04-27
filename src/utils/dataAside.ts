@@ -10,7 +10,7 @@ export default [
     {
         title: 'Supermercado',
         id: 2,
-        href: '/',
+        href: '/supermarket',
         sub: true,
         submenu: [
             {
