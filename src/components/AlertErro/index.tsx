@@ -11,7 +11,7 @@ interface IAlertErroProps {
 }
 
 const AlertErro: React.FC<IAlertErroProps> = ({ erro, setErro, title }) => {
-
+    
     const closeModalErro = () => {
         document.querySelector('.alertErro')?.classList.remove('error');
         setErro(false);

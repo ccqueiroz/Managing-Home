@@ -7,7 +7,7 @@ export const Container = styled.section`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center
+    justify-content: center;
 `;
 export const MsgMain = styled.section`
     height: 70%;

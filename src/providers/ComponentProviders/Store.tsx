@@ -2,35 +2,12 @@ import React, { useState } from 'react';
 
 import { DataContext, dataThemes } from '../DataContext';
 
-import { axiosApi} from '../../Services/axiosInstances';
+// import { axiosApi } from '../../Services/axiosInstances';
 
 interface IDataContextProps {
     children: React.ReactNode;
     changeTheme: Function;
 }
-
-const teste = async ()=>{
-    const body = {
-        email:'caio.cezar@gmail.com',
-        password: '121355'
-    }
-    const data = await axiosApi.post('/auth/login', body);
-
-    localStorage.setItem('token_teste', data.data.access_token);
-    //mandar informações do usuario logado
-
-    console.log(data)
-}
-
-teste();
-
-const teste2 = async () => {
-    const data = await axiosApi.get('/users');
-
-    console.log(data)
-}
-
-teste2();
 
 const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
     const [state, setState] = useState(dataThemes);
@@ -124,6 +101,7 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
         }}>
             {children}
         </DataContext.Provider>
+        // <div></div>
     );
 }
 

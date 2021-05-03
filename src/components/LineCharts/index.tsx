@@ -9,9 +9,9 @@ interface IDateCurrent {
 }
 
 interface IDataArray {
-        entrada: number | string,
-        saida: number | string,
-        month: string
+    entrada: number | string,
+    saida: number | string,
+    month: string
 }
 interface ILineChartsProps {
     supermarket: boolean;
@@ -20,32 +20,32 @@ interface ILineChartsProps {
 const LineCharts: React.FC<IDateCurrent & ILineChartsProps> = ({ yearCurrent, arrayMaster, supermarket }) => {
 
     const dataCharts = useMemo(() => {
-        const Arraymonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', "Junho", "Julho","Agosto", "Setembro","Outubro", "Novembro","Dezembro"];
+        const Arraymonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
         let data: Array<IDataArray> = [];
-        let dataEntrada:Array<any> = [0,0,0,0,0,0,0,0,0,0,0, 0];
-        const dataSaida:Array<any> = [0,0,0,0,0,0,0,0,0,0,0, 0];
+        let dataEntrada: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const dataSaida: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         const years = arrayMaster.filter(e => {
-           const y = String(new Date(e.date).getFullYear());
-           if(Number(y) === Number(yearCurrent)){
-               return e;
-           }
+            const y = String(new Date(e.date).getFullYear());
+            if (Number(y) === Number(yearCurrent)) {
+                return e;
+            }
         });
 
         Arraymonths.map((_, indexMonth) => {
             years.map((el) => {
                 const months = String(new Date(el.date).getMonth());
-                if(Number(months) === indexMonth){
-                    if(el.type === 'entrada'){
+                if (Number(months) === indexMonth) {
+                    if (el.type === 'entrada') {
                         dataEntrada[Number(months)] += Number(el.amount);
-                    }else{
+                    } else {
                         dataSaida[Number(months)] += Number(el.amount);
                     }
-                }                
+                }
             });
         });
-        
-        data = Arraymonths.map((e, index)=>{
+
+        data = Arraymonths.map((e, index) => {
             return ({
                 "month": e.slice(0, 3),
                 "entrada": dataEntrada[index].toFixed(2),
@@ -58,9 +58,9 @@ const LineCharts: React.FC<IDateCurrent & ILineChartsProps> = ({ yearCurrent, ar
     }, [yearCurrent, arrayMaster]);
 
     const chartTitleType = (supermarket: boolean) => {
-        if(supermarket){
+        if (supermarket) {
             return 'Histórico de Compras do supermercado';
-        }else{
+        } else {
             return 'Histórico de Saldo'
         }
     }
@@ -69,12 +69,28 @@ const LineCharts: React.FC<IDateCurrent & ILineChartsProps> = ({ yearCurrent, ar
             <MainBox>
                 <h3>{chartTitleType(supermarket)} - Ano : {yearCurrent}</h3>
                 <div className="contentEntradaSaida">
-                    <FlagBox type="entrada">
-                        <span className="flag"></span><span className="text">Entradas</span>
-                    </FlagBox>
-                    <FlagBox type="saida">
-                        <span className="flag"></span><span className="text">Saídas</span>
-                    </FlagBox>
+                    {
+                        !supermarket && (
+                            <FlagBox type="entrada">
+                                <span className="flag"></span><span className="text">Entradas</span>
+                            </FlagBox>
+                            )
+                    }
+                    {
+
+                        !supermarket && (
+                            <FlagBox type="saida">
+                                <span className="flag"></span><span className="text">Saídas</span>
+                            </FlagBox> 
+                        )
+                    }
+                    {
+                        supermarket && (
+                            <FlagBox type="supermercado" isSupermarket={true}>
+                                <span className="flag"></span><span className="text">Supermercado</span>
+                            </FlagBox>
+                        )
+                    }
                 </div>
             </MainBox>
             <Charts>
@@ -84,10 +100,27 @@ const LineCharts: React.FC<IDateCurrent & ILineChartsProps> = ({ yearCurrent, ar
                             <XAxis dataKey="month" axisLine={false} tickLine={false}
                                 tick={{ stroke: '#ffffff', strokeWidth: .15 }} interval='preserveStartEnd' />
                             <Tooltip offset={5} cursor={{ strokeWidth: 0 }} />
-                            <Line type="monotone" dataKey="entrada" stroke='#F7931B' dot={{ r: 3 }}
-                                activeDot={{ r: 4 }} strokeWidth={4} name="Entradas" />
-                            <Line type="monotone" dataKey="saida" stroke='#E44C4E' dot={{ r: 3 }}
-                                activeDot={{ r: 4 }} strokeWidth={5} name="Saídas" />
+                            {
+                                !supermarket && (
+                                    <Line type="monotone" dataKey="entrada" stroke='#F7931B' dot={{ r: 3 }}
+                                    activeDot={{ r: 4 }} strokeWidth={4} name="Entradas" />
+                                    )
+                            }
+                            {
+
+                                !supermarket && (
+                                    <Line type="monotone" dataKey="saida" stroke='#E44C4E' dot={{ r: 3 }}
+                                    activeDot={{ r: 4 }} strokeWidth={5} name="Saídas" />
+                                )
+                            }
+                            {
+                                supermarket && (
+                                    <Line type="monotone" dataKey="entrada" stroke='#3ad41c' dot={{ r: 3 }}
+                                    activeDot={{ r: 4 }} strokeWidth={4} name="Entradas" />
+                                )
+                            }
+
+
                         </LineChart>
                     </ResponsiveContainer>
                 </div>

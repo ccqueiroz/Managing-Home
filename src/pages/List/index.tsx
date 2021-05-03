@@ -176,7 +176,6 @@ const List: React.FC<IListProps> = (match) => {
     }
     const changeModal = () => {
         setModal(!modal);
-        console.log(modal);
     }
     /* TESTE DE FUNÇÕES */
 

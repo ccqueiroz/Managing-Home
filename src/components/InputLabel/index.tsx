@@ -12,7 +12,7 @@ interface IInputLabelProps {
     name?: string,
     className?: string,
     type?: string,
-    dataForm?:any
+    dataForm?: any,
 }
 
 interface IStatusFocusInput {
@@ -23,14 +23,13 @@ const InputLabel: React.FC<IInputLabelProps> = ({
     onChange,
     value,
     autoComplete,
-    className,
     required,
     titleLabel,
     id,
     idSpan,
     name,
     type,
-    dataForm
+    dataForm,
 }) => {
 
     const [statusFocusInput, setStatusFocusInput] = useState<IStatusFocusInput>({
@@ -38,14 +37,13 @@ const InputLabel: React.FC<IInputLabelProps> = ({
     });
 
     useEffect(() => {
-        if(id)
+        if (id)
             clickedInput(id);
-        if(idSpan)
+        if (idSpan)
             changePositionSpan(idSpan);
     }, [statusFocusInput.generic]);
 
-
-    const clickedInput = (id:string) => {
+    const clickedInput = (id: string) => {
         const inputGeneric = document.getElementById(id);
         inputGeneric?.addEventListener('focus', () => {
             setStatusFocusInput({
@@ -59,10 +57,10 @@ const InputLabel: React.FC<IInputLabelProps> = ({
                 generic: false
             })
         });
-        
+
     };
 
-    const changePositionSpan = (idSpan:string) => {
+    const changePositionSpan = (idSpan: string) => {
         const spanGeneric = document.getElementById(idSpan);
 
         if (dataForm !== '' || statusFocusInput.generic)

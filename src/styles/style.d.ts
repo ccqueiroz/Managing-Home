@@ -9,6 +9,8 @@ declare module 'styled-components' {
             secondary: string,
             tertiary: string,
 
+            quartiary: string,
+
             white: string,
             black: string,
             gray: string,
@@ -16,7 +18,11 @@ declare module 'styled-components' {
             success: string,
             info: string,
             warning: string,
-            textBallon: string
+            textBallon: string,
+            linearGradient: string,
+            boxShadow: string
+            linearGradientBg: string
+
 
         },
     }

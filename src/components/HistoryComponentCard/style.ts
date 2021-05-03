@@ -1,7 +1,7 @@
-import styled  from 'styled-components';
+import styled from 'styled-components';
 
 
-interface ITagColorProps{
+interface ITagColorProps {
     color: string;
 }
 
@@ -11,13 +11,12 @@ export const Container = styled.article`
     margin: 0 auto 20px auto;
     height: 60px;
     border-radius: 10px;
-    background-color: ${props => props.theme.colors.tertiary};
+    background-color: ${props => props.theme.colors.secondary};
     display: flex;
 
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-
     transition: all .3s;
 
     &:hover{
@@ -25,8 +24,6 @@ export const Container = styled.article`
         opacity: .7;
 
     }
-
-
 `;
 export const TagColor = styled.div<ITagColorProps>`
     width: 5px;
@@ -43,6 +40,20 @@ export const ContentMain = styled.div`
     justify-content: center;
     color: ${props => props.theme.colors.white};
     padding: 0 25px;
+
+    
+    @media(max-width: 500px){
+        width: 50%;
+        font-size: 15px;
+        align-items: flex-start;
+        padding: 3px 10px;
+    }
+    @media(max-width: 375px){
+        padding: 3px 10px;
+        font-size: 13px;
+        overflow: auto;
+    }
+
 `;
 
 export const Title = styled.span`
@@ -62,6 +73,17 @@ export const Amount = styled.h3`
     align-items: center;
     padding: 0 15px;
     color: ${props => props.theme.colors.white};
+
+    @media(max-width: 500px){
+        width: 50%;
+        padding: 0 5px;
+        font-size: 15px;
+    }
+    @media(max-width: 375px){
+        padding: 3px 10px;
+        font-size: 13px;
+    }
+
 `;
 
 export const Actions = styled.div`
@@ -71,6 +93,7 @@ export const Actions = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 25px;
+
 
     > button{
         background-color: transparent;
@@ -85,6 +108,15 @@ export const Actions = styled.div`
     }
     > button:hover{
         opacity: .6;
+    }
+
+    @media(max-width: 500px){
+        width: 80px;
+        padding: 0 10px;
+
+        > button{
+            font-size: 20px;
+        }
     }
 
 `;

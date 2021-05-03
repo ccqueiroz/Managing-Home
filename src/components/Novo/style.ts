@@ -12,6 +12,7 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
 
+
     &:hover .teste{
         display: flex;
     }
@@ -47,7 +48,7 @@ export const Alt = styled.div`
     position: absolute;
     top: -33px;
     font-size: 16px;
-    background: ${props => props.theme.colors.textBallon};
+    background: ${props => props.theme.colors.warning};
     border-radius: 10px;
     width: 180px;
     height: 30px;
@@ -68,7 +69,7 @@ export const Alt = styled.div`
         position: absolute;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
-        border-top: 20px solid ${props => props.theme.colors.textBallon};
+        border-top: 20px solid ${props => props.theme.colors.warning};
         transition: all 2s;
         bottom: -20px;
         left: calc(100% - 47px);

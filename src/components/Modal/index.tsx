@@ -85,7 +85,7 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal, data }) => {
             frequency: statusSubmit.frequency,
             date: statusSubmit.date
         }
-        console.log(data)
+
         addressSchema.isValid(data).then(valid => {
             if (!valid) {
                 if (!data.description || data.description === "")

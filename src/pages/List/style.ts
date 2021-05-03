@@ -24,7 +24,7 @@ export const Filters = styled.div`
 
     > button > h4 {
         font-weight: normal;
-        color: ${props => props.theme.colors.white}
+        color: ${props => props.theme.colors.secondary}
     }
     > button > span{
         width: 40px;

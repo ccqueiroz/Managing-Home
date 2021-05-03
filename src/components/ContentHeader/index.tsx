@@ -69,7 +69,6 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({ title, lineColor, valueS
             </TitleController>
             <Controllers>
                 <SelectInput options={uniqueMonth} defaultMonth={monthCurrentValue} valueSelectedProp={(e) => valueSelectedMonth(e)}/>
-                {/* <SelectInput options={listDayMonth(dayMonth, date)} defaultMonth={dayMonthcurrentValue} /> */}
                 <SelectInput options={uniqueYear} defaultMonth={yearcurrentValue} valueSelectedProp={(e) => valueSelectedYear(e)}/>
             </Controllers>
         </Container>

@@ -99,3 +99,20 @@ export const populatingArrayByDate = (masterArray: Array<IArrayData>, valueSelec
     });
    return array;
 }
+
+export const selecEmoji = (arrayEmojis:Array<string>, setSaldoEmoji:any, saldoEmoji:any, saldoCurrent: number, setEmoji: any) =>{
+    setSaldoEmoji(saldoCurrent)
+    if (saldoEmoji <= 0) {
+        return setEmoji(arrayEmojis[2]);
+    } else if (saldoEmoji > 0 && saldoEmoji <= 50) {
+        return setEmoji(arrayEmojis[1]);
+    } else if (saldoEmoji > 50 && saldoEmoji <= 100) {
+        return setEmoji(arrayEmojis[4]);
+    } else if (saldoEmoji > 100 && saldoEmoji <= 500) {
+        return setEmoji(arrayEmojis[5]);
+    } else if (saldoEmoji > 500 && saldoEmoji <= 1000) {
+        return setEmoji(arrayEmojis[0]);
+    } else if (saldoEmoji > 1000) {
+        return setEmoji(arrayEmojis[3]);
+    }
+}

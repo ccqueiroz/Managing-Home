@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-interface IBgVisor{
+interface IBgVisor {
     typeData: string;
 }
 
-interface ILegendColor{
+interface ILegendColor {
     color: string;
 }
 export const Container = styled.div`
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     justify-content: center;
 `;
@@ -19,9 +19,6 @@ export const LegendContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* padding-left: 0px 0px 10px 15px;
-    margin: 10px;
-*/
     margin-top: 10px;
     overflow-y: scroll; 
 
@@ -34,6 +31,13 @@ export const LegendContainer = styled.div`
     }
     ::-webkit-scrollbar-track{
         background-color: ${props => props.theme.colors.secondary};
+    }
+
+    @media(max-width: 500px){
+        ::-webkit-scrollbar{
+            width: 5px;
+            height: 5px;
+        }
     }
     
 `;
@@ -49,6 +53,16 @@ export const SideLeft = styled.div`
         height: 20%;
         color: ${props => props.theme.colors.white};
     }
+
+    @media(max-width:500px){
+        height: 180px;
+        padding: 8px;
+        margin-left: 30px;
+    }
+
+    @media(max-width: 380px){
+        margin-left: 20px;
+    }
 `;
 export const SideRight = styled.div`
     width: 60%;
@@ -62,7 +76,7 @@ export const Legends = styled.div<IBgVisor>`
     align-items: baseline;
 
     > span{
-        color: ${ props => props.theme.colors.white };
+        color: ${props => props.theme.colors.white};
         margin-left: 5px;
         font-size: 16px;
 
@@ -75,9 +89,16 @@ export const Legends = styled.div<IBgVisor>`
         justify-content: center;
         align-items: center;
         border-radius: 10px;
-        background-color: ${ props => (props.typeData === 'entrada') ? '#F7931B' : '#E44C4E'};
+        background-color: ${props => (props.typeData === 'entrada') ? '#F7931B' : '#E44C4E'};
         font-weight: bold;
         font-size: 17px;
-        color: ${ props => props.theme.colors.white }
+        color: ${props => props.theme.colors.white}
+    }
+
+    @media(max-width:500px){
+        .visor{
+           font-size: 14px;   
+           padding:5px;
+        }
     }
 `;

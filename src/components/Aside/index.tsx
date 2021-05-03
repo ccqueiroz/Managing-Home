@@ -1,13 +1,13 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-import { Container, Header, LogoImg, MenuContainer, MenuItemLink, Title, TitleMenuLink, ContainerSubMenu, Img } from './style';
+import { Container, Header, LogoImg, MenuContainer, MenuItemLink, TitleMenuLink, ContainerSubMenu, Img } from './style';
 
 import logoImg from '../../assets/logo.svg';
 
-import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp, MdShoppingCart, MdInsertDriveFile, MdAddShoppingCart, MdShoppingBasket } from 'react-icons/md';
-
+import { MdArrowDownward, MdArrowUpward, MdExitToApp, MdShoppingCart, MdInsertDriveFile, MdAddShoppingCart, MdShoppingBasket } from 'react-icons/md';
+import { AiOutlineLineChart } from 'react-icons/ai';
 
 import dataAside from '../../utils/dataAside';
 import { DataContext } from '../../providers/DataContext';
@@ -17,15 +17,16 @@ const Aside: React.FC = () => {
 
     const themes = useContext(DataContext);
 
-    console.log('aside ->')
-    console.log(themes)
-
     const arrayImgMenuLink = [
-        <MdDashboard />, <MdShoppingCart />, <MdArrowUpward />, <MdArrowDownward />, <MdExitToApp />
+        <AiOutlineLineChart />, <MdShoppingCart />, <MdArrowUpward />, <MdArrowDownward />, <MdExitToApp />
     ]
     const arrayImgSubMenuLink = [
         <MdInsertDriveFile />, <MdAddShoppingCart />, <MdShoppingBasket />
     ]
+
+    useEffect(() => {
+        console.log(window.location.pathname)
+    }, [window.location.pathname]);
 
     const arrayStateButtons = useMemo(() => {
         return [
@@ -35,26 +36,32 @@ const Aside: React.FC = () => {
         ];
     }, [themes.asideShowButtons]);
 
-
+    const analyzingPath = (href: string) => {
+        if (window.location.pathname === href) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     return (
         <Container>
             <Header>
                 <LogoImg src={logoImg} alt="Logo do App Managing Home" />
-                <Title>Managing Home</Title>
             </Header>
 
             <MenuContainer>
                 {
                     dataAside.map((element, index) => {
+                        console.log(element.href)
                         return (
                             <div className="div" key={element.id}>
-                                <Link to={element.href} style={{ textDecoration: 'none' }}>
-                                    <MenuItemLink  href={element.href}>
+                                <Link to={element.href} style={{ textDecoration: 'none' }} >
+                                    <MenuItemLink href={element.href} pathIsEqual={analyzingPath(element.href)}>
                                         {arrayImgMenuLink[index]}
                                         <TitleMenuLink>{element.title}</TitleMenuLink>
                                     </MenuItemLink>
                                 </Link>
-                                <ContainerSubMenu>
+                                {/* <ContainerSubMenu>
                                     {
                                         themes.asideShowButtons.showModal ?
                                             element.sub ?
@@ -64,7 +71,9 @@ const Aside: React.FC = () => {
                                                             color: menuItem.bgColor, display: arrayStateButtons.filter((_, index) => {
                                                                 return index === (menuItem.id - 1)
                                                             })[0] ? 'flex' : 'none'
-                                                            }} id='teste' onClick={e => themes.setShowButton(e, (menuItem.id -1))}>
+                                                        }}
+                                                            onClick={e => themes.setShowButton(e, (menuItem.id - 1))}
+                                                        >
                                                             <Img>{arrayImgSubMenuLink[menuItem.id - 1]}</Img>
                                                             <TitleMenuLink>{menuItem.title}</TitleMenuLink>
                                                         </button>
@@ -73,7 +82,7 @@ const Aside: React.FC = () => {
                                                 : null
                                             : null
                                     }
-                                </ContainerSubMenu>
+                                </ContainerSubMenu> */}
                             </div>
                         );
                     })

@@ -1,67 +1,65 @@
 import styled from 'styled-components';
 
+interface IMenuItemLink {
+    pathIsEqual?: boolean
+}
+
 export const Container = styled.div`
     grid-area: ASIDE;
 
 
-    background-color: ${props => props.theme.colors.secondary};
-
-    border-right: 1px solid ${props => props.theme.colors.gray};
-
     display: flex;
     flex-direction: column;
 
-    box-shadow: 1px 3px 15px 1px rgb(0 0 0 / 30%);
+    background-color: ${props => props.theme.colors.white};
+    box-shadow:0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
 
-
+    z-index: 99;
 
 `;
 
 export const Header = styled.header`
     height: 70px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 
     margin: 2px 0;
-    padding: 2% 20px;
-
-    color: ${props => props.theme.colors.white};
-
-`;
-
-export const Title = styled.h1`
-    font-size: 1.1rem;
-    color: ${props => props.theme.colors.white};
-
 `;
 
 export const LogoImg = styled.img`
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    height: 100%;
 `;
 
 export const MenuContainer = styled.nav`
+    width: 100%;
+    height: 100%;
     flex: 1;
-    padding: 50px 20px;
+    padding-top: 10px;
+    padding-bottom: 108px;
     display: flex;
     flex-direction: column;
-    align-items: baseline;
-
+    align-items: center;
+    justify-content: space-around;
+    
 `;
 
-export const MenuItemLink = styled.a`
+export const MenuItemLink = styled.a<IMenuItemLink>`
+        width: 100%;
+        min-width: 130px;
+        height: 4rem;
         text-decoration: none;
         cursor: pointer;
-        margin: 10px;
-        color: ${props => props.theme.colors.info};
+        color: ${props => props.pathIsEqual ? props.theme.colors.white : props.theme.colors.secondary};
+        background-color: ${props => props.pathIsEqual ? props.theme.colors.primary : 'transparent'};
 
         display: flex;
-        align-items: end;
+        flex-direction: column;
+        align-items: center;
+        justify-content:center;
 
-        
-
-        transition: opacity .3s;
+        transition: all .3s;
 
         &:hover{
             opacity: 0.7;
@@ -99,5 +97,5 @@ export const Img = styled.div`
 `;
 
 export const TitleMenuLink = styled.span`
-    margin-left: 10px;
+    /* margin-left: 10px; */
 `;

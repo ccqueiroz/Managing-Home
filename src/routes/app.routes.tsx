@@ -1,30 +1,42 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Layout from '../components/Layout/index';
 
 import Dashboard from '../pages/Dashboard';
 import ForgotPassword from '../pages/ForgotPassword';
 import List from '../pages/List';
+import Logout from '../pages/Logout';
 import NewAccount from '../pages/NewAccount';
 import SignIn from '../pages/SignIn';
 import Supermarket from '../pages/Supermarket';
 
-const AppRoutes: React.FC = () => {
-    return (
-        <BrowserRouter>
+type Props = {
+    isToken?: string | null | undefined;
+};
+const AppRoutes: React.FC <Props> = ({ isToken }) => {
+    console.log(isToken)
+    return isToken ?
+        (
             <Switch>
-                <Route path="/" exact component={SignIn} />
-                <Route path="/register" exact component={NewAccount} />
-                <Route path="/forgot" exact component={ForgotPassword} />
                 <Layout>
                     <Route path="/dashboard" exact component={Dashboard} />
                     <Route path="/list/:type" exact component={List} />
                     <Route path="/supermarket" exact component={Supermarket} />
+                    <Route path="/logout" exact component={Logout} />
+                    <Redirect exact to="/dashboard" />
                 </Layout>
             </Switch>
-        </BrowserRouter>
-    );
+        )
+        :
+        (
+            <Switch>
+                <Route path="/" exact component={SignIn} />
+                <Route path="/register" exact component={NewAccount} />
+                <Route path="/forgot" exact component={ForgotPassword} />
+                <Redirect exact to="/"/>
+            </Switch>
+        )
 }
 
 export default AppRoutes;

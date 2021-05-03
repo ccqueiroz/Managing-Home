@@ -12,7 +12,6 @@ interface IFormCredentialsProps{
 }
 
 const FormCredentials : React.FC <IFormCredentialsProps> = ({contentButton, children, submit, typeForm}) =>{
-   console.log(typeForm)
     return(
         <FormSignIn onSubmit={submit}>
             <div className="contentLogo">

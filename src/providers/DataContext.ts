@@ -1,17 +1,18 @@
 import React from 'react';
 
-import dark from '../styles/Themes/dark';
-import light from '../styles/Themes/light';
+// import dark from '../styles/Themes/dark';
+// import light from '../styles/Themes/light';
+import colorsDefault from '../styles/Themes/colorsDefault';
 
-const themes = [
-    dark, light
-]
+// const themes = [
+//     dark, light
+// ]
 
 const date = new Date();
 
 
 export const dataThemes = {
-        theme: themes,
+        theme: colorsDefault,
         saldoCurrent: 0,
         date: date,
         asideShowButtons: {
@@ -21,7 +22,6 @@ export const dataThemes = {
             buySingle: false
         }
 }
-console.log('teste DataContext')
 console.log(dataThemes.date)
 
 export const DataThemesProps ={

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, ContentForm, LoginImage } from './style';
 
-import ImageSignIn from '../../../assets/loginImage.jpg';
+import ImageSignIn from '../../../assets/banner-main.svg';
 
 interface ILayoutSignInProps {
     children: React.ReactNode,

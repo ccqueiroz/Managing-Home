@@ -1,45 +1,72 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-import { Container, Profile, Welcome, UserName, ToggleContainer } from './style';
-
-import Toggle from '../Toggle/index';
+import { Container, Profile, Welcome, UserName, LogoImgSmallScreen, MenuToggle } from './style';
 
 import emojis from '../../utils/emojis';
+import { selecEmoji } from '../../utils/functionsAuxiliares';
+
+import logoImg from '../../assets/logo.svg';
+
+import { AiOutlineMenu } from 'react-icons/ai';
 
 import { DataContext } from '../../providers/DataContext';
+import ModalMenuToggle from './ModalMenuToggle';
 
 
-const MainHeader : React.FC = () => {
+const MainHeader: React.FC = () => {
     const themes = useContext(DataContext);
 
     const [saldoEmoji, setSaldoEmoji] = useState<Number>(0);
-    const [ Emoji, setEmoji] = useState<any>([]);
+    const [Emoji, setEmoji] = useState<any>([]);
+    const [screnWidith, setScreenWidth] = useState(window.screen.width);
 
-    useEffect(()=>{
-        setSaldoEmoji(themes.saldoCurrent)
-        if(saldoEmoji <= 0){
-            return setEmoji(emojis[2]);
-        }else if(saldoEmoji > 0 && saldoEmoji <= 50){
-            return setEmoji(emojis[1]);
-        }else if(saldoEmoji > 50 && saldoEmoji <= 100){
-            return setEmoji(emojis[4]);
-        }else if(saldoEmoji > 100 && saldoEmoji <= 500){
-            return setEmoji(emojis[5]);
-        }else if(saldoEmoji > 500 && saldoEmoji <= 1000){
-            return setEmoji(emojis[0]);
-        }else if(saldoEmoji > 1000){
-            return setEmoji(emojis[3]);
+    const [callModal, setCallModal] = useState<boolean>(false);
+
+    useEffect(() => {
+        const resizeWindow = () => {
+            window.addEventListener('resize', function () {
+                setScreenWidth(window.innerWidth);
+            })
         }
+        resizeWindow();
+    }, [])
+
+    useEffect(() => {
+        selecEmoji(emojis, setSaldoEmoji, saldoEmoji, themes.saldoCurrent, setEmoji);
     }, [themes, saldoEmoji]);
-        return (
+
+    const callModalFun = () => {
+        setCallModal(!callModal);
+        console.log('change')
+    }
+
+
+    return (
         <Container>
-            <ToggleContainer>
-                <Toggle></Toggle>
-            </ToggleContainer>
-            <Profile>
-                <Welcome><strong>Olá</strong>, {Emoji}</Welcome>
-                <UserName>Caio Cezar de Queiroz</UserName>
-            </Profile>
+            <LogoImgSmallScreen >
+                <img src={logoImg} alt="Logo Managaing Home" />
+            </LogoImgSmallScreen>
+
+            {
+                screnWidith < 800 ? (
+                    <MenuToggle>
+                        <button className="imgMenuToggle" onClick={callModalFun}>
+                            <AiOutlineMenu className="MenuClose" />
+                        </button>
+                    </MenuToggle>
+                ) : (
+                    <Profile>
+                        <Welcome><strong>Olá</strong>, {Emoji}</Welcome>
+                        <UserName>Caio Cezar de Queiroz</UserName>
+                    </Profile>
+                )
+            }
+            {
+                screnWidith < 800 ? 
+                    callModal ? <ModalMenuToggle isActived={callModal} setIsActived={callModalFun} /> : null
+                : null
+            }
+
         </Container>
     );
 }

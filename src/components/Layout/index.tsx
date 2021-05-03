@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.ts';
 import { GridLayout } from './style';
 import MainHeader from '../MainHeader';
 import Aside from '../Aside';
 import Content from '../Content';
 
+console.log(window.screen.width)
+
+const Layout: React.FC = ({ children }) => {
+    const [screnWidith, setScreenWidth] = useState(window.screen.width);
+
+    useEffect(()=>{
+        const resizeWindow = () => {
+            window.addEventListener('resize', function () {
+                setScreenWidth(window.innerWidth);
+            })
+        }
+        resizeWindow();
+    }, [])
 
 
-const Layout : React.FC = ({ children }) => {
     return (
         <GridLayout>
-           <MainHeader></MainHeader>
-           <Aside></Aside>
-           <Content>
-                { children }
-           </Content>
+            <MainHeader></MainHeader>
+            {
+                screnWidith > 800 ? <Aside></Aside> : null
+            }
+            <Content>
+                {children}
+            </Content>
         </GridLayout>
 
     );

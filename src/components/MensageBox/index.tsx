@@ -1,13 +1,13 @@
-import React, { Children, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Container } from './style';
 
-
 interface IMensageBoxProps {
-    children: ReactNode
+    children: ReactNode,
+    theLast?: boolean,
 }
-const MensageBox : React.FC = ({ children }) =>{
+const MensageBox : React.FC <IMensageBoxProps>= ({ children, theLast}) =>{
     return (
-        <Container>
+        <Container theLast={theLast}>
             {children}
         </Container>
     );

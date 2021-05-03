@@ -11,12 +11,12 @@ import Store from '../providers/ComponentProviders/Store';
 const App : React.FC = () => {
 
     const themes = useContext(DataContext);
-    const [ useTheme, setUseTheme ] = useState(themes.theme[0]);
+    const [ useTheme, setUseTheme ] = useState(themes.theme);
     const [ toggleBoolean, settoggleBoolean ] = useState(false);
 
-    useEffect(()=>{
-        setUseTheme((toggleBoolean) ? themes.theme[1] : themes.theme[0])
-    }, [toggleBoolean]);
+    // useEffect(()=>{
+    //     setUseTheme((toggleBoolean) ? themes.theme[1] : themes.theme[0])
+    // }, [toggleBoolean]);
 
 
     const changeToggleBoolean = () =>{

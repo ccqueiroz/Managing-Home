@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Container } from './style';
 
 interface IContainerSectionMsgBoxProps{
-    // chilfren: ReactNode;
+    children: ReactNode;
+    justOne?: boolean;
 }
 
-const ContainerSectionMsgBox : React.FC<IContainerSectionMsgBoxProps>= ({ children }) => {
+const ContainerSectionMsgBox : React.FC<IContainerSectionMsgBoxProps>= ({ children, justOne }) => {
     return(
-        <Container>
+        <Container justOne={justOne}>
             {children}
         </Container>
     );

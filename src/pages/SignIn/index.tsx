@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { axiosApi } from '../../Services/axiosInstances';
 import InputLabel from '../../components/InputLabel';
 
@@ -7,12 +7,25 @@ import AlertErro from '../../components/AlertErro';
 import FormCredentials from '../../components/FormCredentials';
 import LayoutSignIn from '../../components/Layout/LayoutSignIn';
 
+export type Token = {
+    access_token: string;
+    expires_in: number;
+    validator?: Validator;
+    usuario ?: string;
+}
+
+export type Validator = {
+    email?: string;
+    password?: string;
+    state?:boolean;
+}
+
 export interface IFormLogin {
     email: string,
     password: string
 }
 
-const SignIn: React.FC = () => {
+const SignIn: React.FC <RouteComponentProps> = ({ history }) => {
     const [dataForm, setDataForm] = useState<IFormLogin>({
         email: '',
         password: ''
@@ -20,7 +33,11 @@ const SignIn: React.FC = () => {
 
     const [erro, setErro] = useState(false);
 
-    const history = useHistory();
+    //verificação de token
+    if(localStorage.getItem('hasTheSessionExpired') === 'true'){
+        console.log('Sessão expirada');
+        localStorage.removeItem('hasTheSessionExpired');
+    }
 
     const handleInput = (e: any) => {
         const { value, name } = e.target;
@@ -30,20 +47,25 @@ const SignIn: React.FC = () => {
         })
     }
 
-    const chengeErro = (erroF: boolean) => {
+    const changeErro = (erroF: boolean) => {
         setErro(erroF);
     }
 
     const onSubmit = async (e: any) => {
         try {
             e.preventDefault();
-            const data = await axiosApi.post('/auth/login', dataForm)
-            console.log(data)
-            if (data.data.access_token) {
+            const response = await axiosApi.post<Token>('/auth/login', dataForm)
+            const { access_token, expires_in, usuario } = response.data;
+            if(!usuario){
+                console.log('!usuario')
+                setErro(!erro);
+            }else{
+                localStorage.setItem('token-managing', access_token);
+                localStorage.setItem('token-managing-expires', String(expires_in));
+                localStorage.setItem('usuario', JSON.stringify(usuario));
+                 axiosApi.defaults.headers.common['authorization'] = `bearer ${access_token}`;
                 history.push('/dashboard');
-            } else {
-                setErro(true);
-                console.log('não fez redirect')
+                window.location.reload();
             }
         } catch (error) {
             setErro(!erro);
@@ -53,7 +75,7 @@ const SignIn: React.FC = () => {
 
     return (
         <LayoutSignIn>
-            <AlertErro title={`Usuário ou Senha incorretos!`} erro={erro} setErro={chengeErro}/>
+            <AlertErro title={`Usuário ou Senha incorretos!`} erro={erro} setErro={changeErro}/>
                 <FormCredentials contentButton='Login' submit={(e: any) => onSubmit(e)} typeForm='new'>
                     <InputLabel onChange={handleInput}
                         titleLabel='Username'

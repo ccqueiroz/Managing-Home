@@ -41,8 +41,12 @@ export const Container = styled.div<IBgColor>`
         opacity: .8;
     }
     @media(max-width: 1200px){
-        width: 80%;
-        height: 220px;
+        min-width: 230px;
+        height: 160px;
+    }
+    @media(max-width: 800px){
+        margin: 10px 8px; 
+        height: 150px;
 
     }
     
@@ -80,12 +84,19 @@ export const HeaderCard = styled.div`
         font-weight: 800;
 
     }
+    @media(max-width: 800px){
+        height: 90%;
+
+        > h2{
+            font-size: 27px;
+        }
+    }
 `;
 
 export const FooterCard = styled.footer`
     color: ${props => props.theme.colors.white};
     width: 100%;
-    height: 30%;
+    height: 10%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -94,5 +105,10 @@ export const FooterCard = styled.footer`
     padding: 0 14px 20px 10px;
     text-align: center;
     font-family: 'Inter', sans-serif;
-    font-weight: 200
+    font-weight: 200;
+
+    @media(max-width: 800px){
+        padding: 0 14px 5px 10px;
+
+    }
 `;

@@ -117,21 +117,23 @@ const Dashboard : React.FC = () => {
     }
     return (
         <Container>
-            <ContentHeader title="Dashboard" lineColor="#4E41F0" valueSelectedMonth={valueSelectMonthFunc} valueSelectedYear={valueSelecYearFunc}></ContentHeader>
+            <ContentHeader title="Dashboard" lineColor="#5c3cbd" valueSelectedMonth={valueSelectMonthFunc} valueSelectedYear={valueSelecYearFunc}></ContentHeader>
             <ContentCardsFlex valueAmountSaldo={saldo} valueAmountEntrada={saldoEntrada} valueAmountSaida={saldoSaida}/>
-            <ContainerSectionMsgBox>
-                <MensageBox><MsgSaldo amount={saldo}/></MensageBox>
-                <MensageBox>
+            <ContainerSectionMsgBox justOne={false}>
+                <MensageBox theLast={false}>
+                    <MsgSaldo amount={saldo}/>
+                </MensageBox>
+                <MensageBox theLast={true}>
                     <PieCharts amoutEntrada={saldoEntrada} amoutSaida={saldoSaida}/>
                 </MensageBox>
             </ContainerSectionMsgBox>
             <ContainerSectionMsgBox>
-                <MensageBox>
+                <MensageBox theLast={false}>
                     <LineCharts yearCurrent={valueSelectYear} arrayMaster={master} supermarket={false}/>
                 </MensageBox>
             </ContainerSectionMsgBox>
             <ContainerSectionMsgBox> {/* gráfico para o supermercado */}
-                <MensageBox>
+                <MensageBox theLast={false}>
                     <LineCharts yearCurrent={valueSelectYear} arrayMaster={master} supermarket={true}/>
                 </MensageBox>
             </ContainerSectionMsgBox>

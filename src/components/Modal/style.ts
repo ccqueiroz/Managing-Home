@@ -5,7 +5,7 @@ interface IImgInputNumber {
 }
 export const Container = styled.div<IImgInputNumber>`
     width: 100%;
-    height: 100vh;
+    height: auto;
     position: fixed;
     background-color: rgba(0, 0, 0, 50%);
     inset: 0;
@@ -32,8 +32,7 @@ export const Container = styled.div<IImgInputNumber>`
         color: ${props => props.theme.colors.white};
         margin-top: 10px;
     }
-
-    }
+    
     > form  > .btnModal{
         position: absolute;
         top: 10px;
