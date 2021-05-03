@@ -57,7 +57,7 @@ const ModalMenuToggle: React.FC<IModalMenuToggle> = ({ isActived, setIsActived }
                                             <TitleMenuLink>{element.title}</TitleMenuLink>
                                         </MenuItemLink>
                                     </Link>
-                                    {/* <ContainerSubMenu>
+                                    <ContainerSubMenu>
                                         {
                                             themes.asideShowButtons.showModal ?
                                                 element.sub ?
@@ -81,7 +81,7 @@ const ModalMenuToggle: React.FC<IModalMenuToggle> = ({ isActived, setIsActived }
                                                     : null
                                                 : null
                                         }
-                                    </ContainerSubMenu> */}
+                                    </ContainerSubMenu>
                                 </div>
                             );
                         })

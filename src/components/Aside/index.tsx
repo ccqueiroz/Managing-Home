@@ -61,7 +61,7 @@ const Aside: React.FC = () => {
                                         <TitleMenuLink>{element.title}</TitleMenuLink>
                                     </MenuItemLink>
                                 </Link>
-                                {/* <ContainerSubMenu>
+                                <ContainerSubMenu>
                                     {
                                         themes.asideShowButtons.showModal ?
                                             element.sub ?
@@ -82,7 +82,7 @@ const Aside: React.FC = () => {
                                                 : null
                                             : null
                                     }
-                                </ContainerSubMenu> */}
+                                </ContainerSubMenu>
                             </div>
                         );
                     })

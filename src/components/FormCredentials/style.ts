@@ -73,6 +73,12 @@ export const FormSignIn = styled.form`
            flex-direction: column;
            align-items: center;
         }
+        .contentLogo{
+            flex-direction: column;
+        }
+        .contentLogo > h1{
+            margin-top: 15px;
+        }
     }
     @media(max-width: 380px){
         h1{
