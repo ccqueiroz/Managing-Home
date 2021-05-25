@@ -15,7 +15,6 @@ type Props = {
     isToken?: string | null | undefined;
 };
 const AppRoutes: React.FC <Props> = ({ isToken }) => {
-    console.log(isToken)
     return isToken ?
         (
             <Switch>

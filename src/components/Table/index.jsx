@@ -26,7 +26,7 @@ const Table = ({ dataProps, columnsProps, actions }) => {
     } = useTable({ columns, data })
 
     return (
-        <MaUTable {...getTableProps()} className="table">
+        <MaUTable {...getTableProps()} className="table" role="table">
             <TableHead>
                 {headerGroups.map((headerGroup) => (
                     <TableRow {...headerGroup.getHeaderGroupProps()}>
@@ -38,7 +38,7 @@ const Table = ({ dataProps, columnsProps, actions }) => {
                                     );
                             }
                             return (
-                                <TableCell {...column.getHeaderProps()} className="th" style={{ textAlign: 'center' }}>
+                                <TableCell {...column.getHeaderProps()} className="th" style={{ textAlign: 'center' }} role="row">
                                     {column.render('Header')}
                                 </TableCell>
                             )
@@ -50,7 +50,7 @@ const Table = ({ dataProps, columnsProps, actions }) => {
                 {rows.map((row, i) => {
                     prepareRow(row)
                     return (
-                        <TableRow {...row.getRowProps()} className="tr">
+                        <TableRow {...row.getRowProps()} className="tr" role="rowgroup">
                             {row.cells.map((cell, index) => {
                                 switch (cell.column.id) {
                                     case 'action':
@@ -74,7 +74,7 @@ const Table = ({ dataProps, columnsProps, actions }) => {
                                         );
                                     case 'description':
                                         return (
-                                            <td className="MuiTableCell-root MuiTableCell-body td" role="cell" style={{ width: '40%', textAlign: 'center' }}>{cell.value}</td>
+                                            <td className="MuiTableCell-root MuiTableCell-body td" role="cell" style={{ width: '40%', textAlign: 'center' }} role="cell">{cell.value}</td>
                                         );
                                 }
                                 return (
@@ -89,60 +89,7 @@ const Table = ({ dataProps, columnsProps, actions }) => {
             </TableBody>
         </MaUTable>
     );
-    // return (
-    // <table {...getTableProps()} >
-    //     <thead>
-    //         {headerGroups.map(headerGroup => (
-    //             <tr {...headerGroup.getHeaderGroupProps()}>
-    //             {headerGroup.headers.map(column => (
-    //                 <th
-    //                 {...column.getHeaderProps()}
 
-    //                 >
-    //                 {column.render('Header')}
-    //                 </th>
-    //             ))}
-    //             </tr>
-    //         ))}
-    //     </thead>
-    //     <tbody {...getTableBodyProps()}>
-    //         {rows.map(row => {
-    //             prepareRow(row)
-    //             return (
-    //             <tr {...row.getRowProps()}>
-    //                 {console.log(row.cells)} {/* row.cells -> cada row é em função dos accessors */}
-    //                 {row.cells.map(cell => {
-    //                     console.log(cell.column)
-    //                     console.log(cell.column.id) /* cell.column.id -> traz o nome da coluna */
-    //                 switch(cell.column.id){
-    //                     case 'action':
-    //                         return(
-    //                             <td>
-    //                                 <span>Editar </span>
-    //                                 <span>Deletar</span>
-    //                             </td>
-    //                         );
-    //                     case 'description':
-    //                         return(
-    //                             <td style={{width: '70%'}}>{cell.value}</td>
-    //                         );
-    //                 }
-    //                 return (
-    //                 <td
-    //                     {...cell.getCellProps()}
-
-    //                     >
-    //                     {cell.render('Cell')}
-    //                     </td>
-    //                 );
-    //                 })}
-    //                 {/* <td>Novo</td>  -> inserir as ações*/}
-    //             </tr>
-    //             )
-    //         })}
-    //     </tbody>
-    // </table>
-    // )
 }
 
 

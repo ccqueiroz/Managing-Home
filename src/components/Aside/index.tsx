@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Container, Header, LogoImg, MenuContainer, MenuItemLink, TitleMenuLink, ContainerSubMenu, Img } from './style';
 
@@ -24,9 +24,10 @@ const Aside: React.FC = () => {
         <MdInsertDriveFile />, <MdAddShoppingCart />, <MdShoppingBasket />
     ]
 
+    console.log(themes)
     useEffect(() => {
         console.log(window.location.pathname)
-    }, [window.location.pathname]);
+    }, []);
 
     const arrayStateButtons = useMemo(() => {
         return [
@@ -52,7 +53,6 @@ const Aside: React.FC = () => {
             <MenuContainer>
                 {
                     dataAside.map((element, index) => {
-                        console.log(element.href)
                         return (
                             <div className="div" key={element.id}>
                                 <Link to={element.href} style={{ textDecoration: 'none' }} >
@@ -68,14 +68,16 @@ const Aside: React.FC = () => {
                                                 element.submenu.map(menuItem => {
                                                     return (
                                                         <button key={menuItem.id} style={{
-                                                            color: menuItem.bgColor, display: arrayStateButtons.filter((_, index) => {
+                                                            display: arrayStateButtons.filter((_, index) => {
                                                                 return index === (menuItem.id - 1)
-                                                            })[0] ? 'flex' : 'none'
+                                                            })[0] ? 'flex' : 'none', zIndex:arrayStateButtons.filter((_, index) => {
+                                                                return index === (menuItem.id - 1)
+                                                            })[0] ? 99999 : 0
                                                         }}
                                                             onClick={e => themes.setShowButton(e, (menuItem.id - 1))}
                                                         >
                                                             <Img>{arrayImgSubMenuLink[menuItem.id - 1]}</Img>
-                                                            <TitleMenuLink>{menuItem.title}</TitleMenuLink>
+                                                            <span style={{flex:1}}>{menuItem.title}</span>
                                                         </button>
                                                     );
                                                 })

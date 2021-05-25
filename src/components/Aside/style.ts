@@ -72,21 +72,32 @@ export const MenuItemLink = styled.a<IMenuItemLink>`
        
 `;
 export const ContainerSubMenu = styled.div`
-    width: 100%;
     display: flex;
     flex-direction: column;
-    position: relative;
-    align-items: flex-start;
-    left: 23%;
     transition: all .3s;
+    justify-content:center;
+    align-items:center;
+
+    padding: 0px 5px 0px 12px;
+    background: #6364d5;
+    box-shadow: 3px 3px 10px -4px rgb(99 100 213 / 45%);
+    position: absolute;
+    width: 170px;
+    height: 115px;
+    left: 135px;
+    top: 155px;
+    border-radius: 25px;
 
     >button{
+        width:90%;
         background-color: transparent;
         margin: 5px;
         font-size: .9rem;
         display: flex;
         align-items: center;
         transition: all .3s;
+        color:white;
+        justify-content: space-between;
     }
     >button:hover{
         opacity: .7;
@@ -97,5 +108,5 @@ export const Img = styled.div`
 `;
 
 export const TitleMenuLink = styled.span`
-    /* margin-left: 10px; */
+
 `;

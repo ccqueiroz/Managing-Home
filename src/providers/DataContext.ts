@@ -1,12 +1,5 @@
 import React from 'react';
-
-// import dark from '../styles/Themes/dark';
-// import light from '../styles/Themes/light';
 import colorsDefault from '../styles/Themes/colorsDefault';
-
-// const themes = [
-//     dark, light
-// ]
 
 const date = new Date();
 
@@ -20,9 +13,9 @@ export const dataThemes = {
             newList: false,
             purchase: false,
             buySingle: false
-        }
+        },
+        resize: window.innerWidth,
 }
-console.log(dataThemes.date)
 
 export const DataThemesProps ={
     theme: dataThemes.theme,
@@ -33,6 +26,7 @@ export const DataThemesProps ={
     setSaldoCurrent: (s: any) => {},
     setDate: (m:number, y: number) => {},
     setShowButton: (s:any, index?:any) => {},
+    resize: dataThemes.resize,
 }
 export const DataContext = React.createContext(DataThemesProps);
 

@@ -48,7 +48,6 @@ const ModalMenuToggle: React.FC<IModalMenuToggle> = ({ isActived, setIsActived }
                 <ContentItemsMenu>
                     {
                         dataAside.map((element, index) => {
-                            console.log(element.href)
                             return (
                                 <div className="div" key={element.id}>
                                     <Link to={element.href} style={{ textDecoration: 'none' }} onClick={setIsActived}>
@@ -64,7 +63,7 @@ const ModalMenuToggle: React.FC<IModalMenuToggle> = ({ isActived, setIsActived }
                                                     element.submenu.map(menuItem => {
                                                         return (
                                                             <button key={menuItem.id} style={{
-                                                                color: menuItem.bgColor, display: arrayStateButtons.filter((_, index) => {
+                                                                color: '#6364d5', display: arrayStateButtons.filter((_, index) => {
                                                                     return index === (menuItem.id - 1)
                                                                 })[0] ? 'flex' : 'none'
                                                             }}

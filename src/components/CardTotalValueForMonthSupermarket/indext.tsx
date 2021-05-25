@@ -17,13 +17,13 @@ const CardTotalValueForMonthSupermarket: React.FC<ICardTotalValueForMonthSuperma
         if (monthCurrent) {
             return (
                 <Title>
-                    O total gasto este mês é <CountUp end={1555.55} prefix="R$ " separator="." decimal="," decimals={2} duration={1.25}/>
+                    O total gasto este mês está em:  <CountUp end={1555.55} prefix="R$ " separator="." decimal="," decimals={2} duration={1.25}/>
                 </Title>
             );
         } else {
             return (
                 <Title>
-                    O total gasto mês passado foi <CountUp end={1000} prefix="R$ " separator="." decimal="," decimals={2} duration={1.25} />
+                    O total gasto mês passado foi: <CountUp end={1000} prefix="R$ " separator="." decimal="," decimals={2} duration={1.25} />
                 </Title>
             );
 

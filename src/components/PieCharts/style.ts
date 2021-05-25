@@ -4,12 +4,8 @@ interface IBgVisor {
     typeData: string;
 }
 
-interface ILegendColor {
-    color: string;
-}
 export const Container = styled.div`
     width: 100%;
-    /* height: 100%; */
     display: flex;
     justify-content: center;
 `;
@@ -19,8 +15,10 @@ export const LegendContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items:flex-end;
     margin-top: 10px;
     overflow-y: scroll; 
+    margin-left:5px;
 
     ::-webkit-scrollbar{
         width: 10px;
@@ -42,10 +40,9 @@ export const LegendContainer = styled.div`
     
 `;
 export const SideLeft = styled.div`
-    width: 40%;
+    width: 45%;
     height: 180px;
     padding: 15px;
-
     > h2{
         display: flex;
         justify-content: center;
@@ -65,7 +62,7 @@ export const SideLeft = styled.div`
     }
 `;
 export const SideRight = styled.div`
-    width: 60%;
+    width: 55%;
     height: 180px;
 `;
 export const Legends = styled.div<IBgVisor>`

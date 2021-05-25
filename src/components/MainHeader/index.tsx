@@ -37,7 +37,6 @@ const MainHeader: React.FC = () => {
 
     const callModalFun = () => {
         setCallModal(!callModal);
-        console.log('change')
     }
 
 

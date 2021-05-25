@@ -53,7 +53,7 @@ const List: React.FC<IListProps> = (match) => {
         type: 'string'
     });
 
-    /* Memo para verificação do tipó de tela que será entregue */
+    /* Memo para verificação do tipo de tela que será entregue */
     const changeTitle = match.match.params.type;
     const title: string = useMemo(() => {
         return (formatTitle(changeTitle) === "Entrada") ? "Entrada" : "Saída"
@@ -71,7 +71,6 @@ const List: React.FC<IListProps> = (match) => {
     }, [changeTitle]);
     /* populando a tela com filtro por Ano e mês -> ao carregar a tela */
     useLayoutEffect(() => {
-        console.log('render useLayoutEffect')
         const array = typeDataArray.filter((el: IArrayData) => {
             const date = formatDate(el.date).split('/');
             const month = String((+valueSelectMonth < 10) ? `0${valueSelectMonth}` : valueSelectMonth);
@@ -156,8 +155,6 @@ const List: React.FC<IListProps> = (match) => {
         const item = masterArray.filter((e: IArrayData) => {
             return id === e.id;
         });
-
-        console.log(item);
     }
     const editItem = (idP: number) => {
         changeModal();

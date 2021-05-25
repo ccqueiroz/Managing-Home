@@ -5,8 +5,6 @@ import MainHeader from '../MainHeader';
 import Aside from '../Aside';
 import Content from '../Content';
 
-console.log(window.screen.width)
-
 const Layout: React.FC = ({ children }) => {
     const [screnWidith, setScreenWidth] = useState(window.screen.width);
 

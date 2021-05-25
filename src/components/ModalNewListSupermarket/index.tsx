@@ -195,7 +195,7 @@ const ModalNewListSupermarket: React.FC = () => {
     return (
         <Container>
             <Header>
-                <h2>Lista de Compras</h2>
+                <h2>Listas de Compras</h2>
                 <label className="titleList">
                     <h3>Nome da Lista</h3>
                     <input type="text" name="titleList" value={nameList} onChange={handleTitle} />
@@ -221,9 +221,10 @@ const ModalNewListSupermarket: React.FC = () => {
                 </form>
             </Header>
             <ContentTable>
+                <p>Lembre-se de salvar sua lista antes de sair da página</p>
+
                 {arrayList.length > 0 ?
                     <div className="contentTable">
-                        <p>Lembre-se de salvar sua lista antes de sair da página</p>
                         {/* usar Table */}
                         <Table
                             dataProps={arrayList}

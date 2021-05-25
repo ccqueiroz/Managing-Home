@@ -1,7 +1,7 @@
 .table {
-    width: 100%;
-    min-width: 100%;
-    height: auto;
+    width: auto;
+    table-layout: auto;
+    border-collapse: collapse;
 }
 
 .th {

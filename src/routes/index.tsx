@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import AppRoutes from './app.routes';
 import { BrowserRouter } from 'react-router-dom';
-import { refreshToken } from '../Services/axiosInstances';
-
+import { useAuth } from '../providers/AuthProvider';
 
 const Routes: React.FC = () => {
-    const [token, setToken] = useState<string | null>();
-    
-    useEffect(() => {
-        setToken(localStorage.getItem('token-managing'));
-        if (token)
-            refreshToken();
-    }, []);
+
+    const { token } = useAuth();
 
     return (
         <BrowserRouter >
-            <AppRoutes isToken={token} />
+            <AppRoutes isToken={token?.access_token} />
         </BrowserRouter>
     );
 

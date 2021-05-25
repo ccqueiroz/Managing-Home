@@ -15,8 +15,9 @@ export const Container = styled.article<IBgColor>`
     margin-right:18px;
     margin-left:18px;
 
-    @media(max-width: 1080){
-        
+    @media(max-width: 650px){
+        width: 100%;
+        margin-bottom:10px;
     }
 `;
 export const Title = styled.h2`
@@ -24,10 +25,16 @@ export const Title = styled.h2`
     color: ${props => props.theme.colors.white};
     font-size: 18px;
     display: flex;
+    flex-direction:column;
     justify-content: center;
+
+    align-items:center;
 
     @media(max-width: 1280px){
         font-size: 14px;
+    }
+    @media(max-width: 650px){
+        width: 100%;
     }
 
 `;

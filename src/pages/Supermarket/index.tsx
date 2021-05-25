@@ -4,9 +4,6 @@ import { Container, ContentHeaderCardBox, ButtonsCardSupermarket } from './style
 import ContentHeader from '../../components/ContentHeader';
 import ContainerSectionMsgBox from '../../components/ContainerSectionMsgBox';
 
-
-
-
 import { DataContext } from '../../providers/DataContext';
 import CardTotalValueForMonthSupermarket from '../../components/CardTotalValueForMonthSupermarket/indext';
 import MensageBox from '../../components/MensageBox';
@@ -16,8 +13,7 @@ import ModalsMainSupermarket from '../../components/ModalsMainSupermarket';
 
 const Supermarket: React.FC = () => {
     const themes = useContext(DataContext);
-    console.log('supermarket ->')
-    console.log(themes)
+
     const [valueSelectMonth, setValueSelectMonth] = useState<string>(String(themes.dateCurrent.getMonth() + 1));
     const [valueSelectYear, setValueSelectYear] = useState<string>(String(themes.dateCurrent.getFullYear()));
 
@@ -56,14 +52,16 @@ const Supermarket: React.FC = () => {
     return (
         <Container>
             <ContentHeader title="Supermercado" lineColor="#3ad41c" valueSelectedMonth={valueSelectMonthFunc} valueSelectedYear={valueSelecYearFunc}></ContentHeader>
-            <ContainerSectionMsgBox>
-                <CardTotalValueForMonthSupermarket bgColor="#4E41F0" monthCurrent={false} />
-                <CardTotalValueForMonthSupermarket bgColor="#3ad41c" monthCurrent={true} />
-            </ContainerSectionMsgBox>
+            <div style={{width: 'auto', height:'auto', marginTop:'15px', marginBottom: themes.resize < 500 ? '-20px' : ''}}>
+                <ContainerSectionMsgBox>
+                    <CardTotalValueForMonthSupermarket bgColor="#4E41F0" monthCurrent={false} />
+                    <CardTotalValueForMonthSupermarket bgColor="#3ad41c" monthCurrent={true} />
+                </ContainerSectionMsgBox>
+            </div>
             <ContainerSectionMsgBox>
                 {
                     !themes.asideShowButtons.showModal ? 
-                        <MensageBox>
+                        <MensageBox controlHeight={true}>
                             <ContentHeaderCardBox>Controle seus gastos com as compras de supermercado. 
                                 <p>Você pode criar uma lista de compras, usá-la quando for ao supermercado para não esquecer nenhum item e controlar o quanto está gastando por mês.</p>
                             </ContentHeaderCardBox>
@@ -74,12 +72,13 @@ const Supermarket: React.FC = () => {
                             </ButtonsCardSupermarket>
                         </MensageBox>
                         :
-                        <MensageBox>
+                        <MensageBox controlHeight={true}>
                             <ModalsMainSupermarket/>
                         </MensageBox>
 
                 }
             </ContainerSectionMsgBox>
+
         </Container>
     );
 }

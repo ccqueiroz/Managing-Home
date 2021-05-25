@@ -104,7 +104,7 @@ export const ContainerSubMenu = styled.div`
     flex-direction: column;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     margin-bottom: 15px;
 `;

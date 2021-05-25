@@ -20,7 +20,9 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({ title, lineColor, valueS
 
     const [ years, setYears ] = useState(2018);
 
-    const [ date, setDate ] = useState(themes.dateCurrent);
+    const  date = useMemo(() => {
+        return themes.dateCurrent;
+    }, [themes]);
 
     const monthCurrentValue = useMemo(() => {
         setMonth(date.getMonth()+1);

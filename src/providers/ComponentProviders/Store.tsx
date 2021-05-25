@@ -14,10 +14,6 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
 
     console.log(state)
     function updateState(key: any, value: any) {
-        /*
-            [theme] : theme[0] || theme[1]
-            [saldoCurrent] : value
-        */
         setState({
             ...state,
             [key]: value
@@ -94,6 +90,7 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
             saldoCurrent: state.saldoCurrent,
             dateCurrent: state.date,
             asideShowButtons: state.asideShowButtons,
+            resize: state.resize,
             setTheme: _ => updateTheme(),
             setSaldoCurrent: (n: number) => updateState('saldoCurrent', n),
             setDate: (m: number, y: number) => setDateProvider(m, y),
@@ -101,7 +98,6 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
         }}>
             {children}
         </DataContext.Provider>
-        // <div></div>
     );
 }
 
