@@ -9,8 +9,11 @@ import { IArrayData } from '../../pages/List/index';
 
 import iconReal from '../../assets/moeda.svg';
 
-import master from '../../repositories/master';
+// import master from '../../repositories/master';
 import Spiner from '../Spiner';
+import { axiosApi } from '../../Services/axiosInstances';
+
+import { useAuth } from '../../providers/AuthProvider';
 
 
 interface IModalProps {
@@ -21,8 +24,9 @@ interface IModalProps {
 
 
 const Modal: React.FC<IModalProps> = ({ changeModal, typeModal, data }) => {
-
+    const { token } = useAuth();
     const [statusSubmit, setStatusSubmit] = useState({
+        id_user: JSON.parse(String(token?.usuario)).id,
         id: 0,
         description: '',
         amount: '',
@@ -30,8 +34,18 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal, data }) => {
         frequency: false,
         date: ''
     });
+    useEffect(() => {
+        const usuario = JSON.parse(String(localStorage.getItem('usuario')));
+        const request = async () => {
+            const response = await axiosApi.post('http://127.0.0.1:8000/api/list-wallet', {
+                'id': usuario.id
+            });
+            console.log(response)
+        }
+        request();
+    }, []);
 
-    const verifyValuesInput = useEffect(() => {
+    useEffect(() => {
         if (typeModal === 'Editar') {
             setStatusSubmit({
                 ...statusSubmit,
@@ -53,13 +67,13 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal, data }) => {
     const [statusErrorDate, setStatusErrorDate] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const addressSchema = yup.object().shape({
-        description: yup.string().required(),
-        amount: yup.string().required(),
-        type: yup.string().required(),
-        frequency: yup.boolean().notRequired(),
-        date: yup.date().required()
-    });
+    // const addressSchema = yup.object().shape({
+    //     description: yup.string().required(),
+    //     amount: yup.string().required(),
+    //     type: yup.string().required(),
+    //     frequency: yup.boolean().notRequired(),
+    //     date: yup.date().required()
+    // });
 
     const handleCheckBox = () => {
         setStatusSubmit({
@@ -74,148 +88,102 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal, data }) => {
         })
     }
 
-    const handleSubmitAdd = (e: any) => {
-        console.log('handle')
-        e.preventDefault();
-        let data = {
-            id: Math.floor(Math.random() * 1000000000),
-            description: statusSubmit.description,
-            amount: statusSubmit.amount.replace(',', '.'),
-            type: statusSubmit.type,
-            frequency: statusSubmit.frequency,
-            date: statusSubmit.date
-        }
-
-        addressSchema.isValid(data).then(valid => {
-            if (!valid) {
-                if (!data.description || data.description === "")
-                    setStatusErrorDescription(true);
-                if (!data.amount || data.amount === "")
-                    setStatusErrorAmount(true);
-                if (!data.type || data.type === "")
-                    setStatusErrorType(true);
-                if (!data.date || data.date === "")
-                    setStatusErrorDate(true);
-
-
-                setTimeout(() => {
-                    setStatusErrorDescription(false);
-                    setStatusErrorAmount(false);
-                    setStatusErrorType(false);
-                    setStatusErrorDate(false);
-                }, 5000)
-            } else {
-                setStatusErrorDescription(false);
-                setStatusErrorAmount(false);
-                setStatusErrorType(false);
-                setStatusErrorDate(false);
-
-                setIsLoading(true);
-
-                //espera a resposta do backend para salvamento
-                setTimeout(() => {
-                    console.log('interval')
-                    console.log(data)
-                    setIsLoading(false);
-                    changeModal();
-                    master.push(data);
-                    setStatusSubmit({
-                        ...statusSubmit,
-                        id: 0,
-                        description: '',
-                        amount: '',
-                        type: '',
-                        frequency: false,
-                        date: ''
-                    });
-                    data = {
-                        id: 0,
-                        description: '',
-                        amount: '',
-                        type: '',
-                        frequency: false,
-                        date: ''
-                    }
-                }, 2000);
+    const handleSubmitAdd = async (e: any) => {
+        try {
+            e.preventDefault();
+            let data = {
+                id_user: JSON.parse(String(token?.usuario)).id,
+                descricao: statusSubmit.description,
+                valor: statusSubmit.amount.replace(',', '.'),
+                tipo: statusSubmit.type,
+                frequencia: statusSubmit.frequency,
+                data: statusSubmit.date
             }
-        });
 
-    }
-    console.log(master)
-    const handleSubmitEdit = (e: any) => {
-        console.log('handleEdit')
-        e.preventDefault();
-        let data = {
-            id: statusSubmit.id,
-            description: statusSubmit.description,
-            amount: statusSubmit.amount.replace(',', '.'),
-            type: statusSubmit.type,
-            frequency: statusSubmit.frequency,
-            date: statusSubmit.date
-        }
-        addressSchema.isValid(data).then(valid => {
-            if (!valid) {
-                if (!data.description || data.description === "")
-                    setStatusErrorDescription(true);
-                if (!data.amount || data.amount === "")
-                    setStatusErrorAmount(true);
-                if (!data.type || data.type === "")
-                    setStatusErrorType(true);
-                if (!data.date || data.date === "")
-                    setStatusErrorDate(true);
-
-
-                setTimeout(() => {
-                    setStatusErrorDescription(false);
-                    setStatusErrorAmount(false);
-                    setStatusErrorType(false);
-                    setStatusErrorDate(false);
-                }, 5000);
+            if (!data.descricao || data.descricao === '') {
+                setStatusErrorDescription(true);
+            } else if (!data.valor || data.valor === "") {
+                setStatusErrorAmount(true);
+            } else if (!data.tipo || data.tipo === "") {
+                setStatusErrorType(true);
+            } else if (!data.data || data.data === "") {
+                setStatusErrorDate(true);
             } else {
-                setStatusErrorDescription(false);
-                setStatusErrorAmount(false);
-                setStatusErrorType(false);
-                setStatusErrorDate(false);
-
                 setIsLoading(true);
-                const index = master.findIndex(e => {
-                    return e.id === data.id
-                });
-                if(index > -1){
-                    // espera a resposta do backend para salvamento
-                    setTimeout(() => {
-                        master.splice(index, 1, data);
-                        setIsLoading(false);
-                        changeModal();
-                        setStatusSubmit({
-                            ...statusSubmit,
-                            id: 0,
-                            description: '',
-                            amount: '',
-                            type: '',
-                            frequency: false,
-                            date: ''
-                        });
-                        data = {
-                            id: 0,
-                            description: '',
-                            amount: '',
-                            type: '',
-                            frequency: false,
-                            date: ''
-                        }
-                    }, 2000);
-                    
-                    
+                await axiosApi.post('http://127.0.0.1:8000/api/store', data);
+                data = {
+                    id_user: 0,
+                    descricao: '',
+                    valor: '',
+                    tipo: '',
+                    frequencia: false,
+                    data: ''
                 }
             }
-        });
+
+            setTimeout(() => {
+                setStatusErrorDescription(false);
+                setStatusErrorAmount(false);
+                setStatusErrorType(false);
+                setStatusErrorDate(false);
+            }, 5000);
+
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
 
     }
+    const handleSubmitEdit = async (e: any) => {
+        try {
+            e.preventDefault();
+            let data = {
+                id_user: JSON.parse(String(token?.usuario)).id,
+                id: statusSubmit.id,
+                descricao: statusSubmit.description,
+                valor: statusSubmit.amount.replace(',', '.'),
+                tipo: statusSubmit.type,
+                frequencia: statusSubmit.frequency,
+                data: statusSubmit.date
+            }
 
+            if (!data.descricao || data.descricao === '') {
+                setStatusErrorDescription(true);
+            } else if (!data.valor || data.valor === "") {
+                setStatusErrorAmount(true);
+            } else if (!data.tipo || data.tipo === "") {
+                setStatusErrorType(true);
+            } else if (!data.data || data.data === "") {
+                setStatusErrorDate(true);
+            } else {
+                setIsLoading(true);
+                await axiosApi.post('http://127.0.0.1:8000/api/update', data);
+                data = {
+                    id_user: 0,
+                    id: 999999999,
+                    descricao: '',
+                    valor: '',
+                    tipo: '',
+                    frequencia: false,
+                    data: ''
+                }
+            }
 
-    // console.log(statusSubmit.frequency)
+            setTimeout(() => {
+                setStatusErrorDescription(false);
+                setStatusErrorAmount(false);
+                setStatusErrorType(false);
+                setStatusErrorDate(false);
+            }, 5000);
 
+        } catch (error) {
+
+        } finally {
+            setIsLoading(false);
+
+        }
+    }
 
     return (
         <Container img={iconReal}>
@@ -256,7 +224,7 @@ const Modal: React.FC<IModalProps> = ({ changeModal, typeModal, data }) => {
                         <div className="contentInput">
                             <span>Frequente</span>
                             <input type="checkbox" name="frequency" id="frequency" onChange={_ => handleCheckBox()}
-                                defaultChecked={statusSubmit.frequency} />
+                                checked={statusSubmit.frequency} />
                         </div>
                     </label>
                     <label htmlFor="date" className="labelForm date">

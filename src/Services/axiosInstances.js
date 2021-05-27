@@ -13,26 +13,26 @@ export const axiosApi = Axios.create({
 });
 
 //erros
-export const errorInterceptor = axiosApi.interceptors.response.use(
-    function (response) {
-        return response;
-    }, async function (error) {
-        console.log('errorInterceptor')
-        if (error.response.data.mensagem) {
-            console.log(error.response.data.mensagem);
-        } else if (error.response.data.error) {
-            console.log(error.response.data.error);
-        } else if (error.response.data.message) {
-            console.log(error.response.data.message);
-        }
+// export const errorInterceptor = axiosApi.interceptors.response.use(
+//     function (response) {
+//         return response;
+//     }, async function (error) {
+//         console.log('errorInterceptor')
+//         if (error.response.data.mensagem) {
+//             console.log(error.response.data.mensagem);
+//         } else if (error.response.data.error) {
+//             console.log(error.response.data.error);
+//         } else if (error.response.data.message) {
+//             console.log(error.response.data.message);
+//         }
 
-        localStorage.clear();
-        localStorage.setItem('hasTheSessionExpired', 'true');
-        window.location.reload();
+//         localStorage.clear();
+//         localStorage.setItem('hasTheSessionExpired', 'true');
+//         window.location.reload();
 
-        return Promise.reject(error);
-    }
-);
+//         return Promise.reject(error);
+//     }
+// );
 
 //refresh
 export const refreshToken = () => {

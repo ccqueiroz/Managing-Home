@@ -9,7 +9,8 @@ export const dataThemes = {
         saldoCurrent: 0,
         date: date,
         asideShowButtons: {
-            showModal: false,
+            showModal:false,
+            showModalToggle: false,
             newList: false,
             purchase: false,
             buySingle: false
@@ -26,6 +27,8 @@ export const DataThemesProps ={
     setSaldoCurrent: (s: any) => {},
     setDate: (m:number, y: number) => {},
     setShowButton: (s:any, index?:any) => {},
+    closeModalStandBy: () => {},
+    openModalStandBy: () => {},
     resize: dataThemes.resize,
 }
 export const DataContext = React.createContext(DataThemesProps);

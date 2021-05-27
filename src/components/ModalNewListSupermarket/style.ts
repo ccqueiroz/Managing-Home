@@ -12,6 +12,7 @@ export const Header = styled.div`
     align-items:center;
     color: ${props => props.theme.colors.white};
     font-size: 18px;
+    margin: 20px auto 8px auto;
 
     > label.titleList{
         display: flex;

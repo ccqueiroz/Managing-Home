@@ -12,7 +12,6 @@ interface IDataContextProps {
 const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
     const [state, setState] = useState(dataThemes);
 
-    console.log(state)
     function updateState(key: any, value: any) {
         setState({
             ...state,
@@ -40,6 +39,7 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
             setState({
                 ...state,
                 asideShowButtons: {
+                    showModalToggle: true,
                     showModal: true,
                     newList: false,
                     purchase: true,
@@ -50,6 +50,7 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
             setState({
                 ...state,
                 asideShowButtons: {
+                    showModalToggle: true,
                     showModal: true,
                     newList: true,
                     purchase: false,
@@ -61,6 +62,7 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
             setState({
                 ...state,
                 asideShowButtons: {
+                    showModalToggle: true,
                     showModal: true,
                     newList: true,
                     purchase: true,
@@ -72,10 +74,50 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
             setState({
                 ...state,
                 asideShowButtons: {
+                    showModalToggle: false,
                     showModal: false,
                     newList: false,
                     purchase: false,
                     buySingle: false
+                }
+            });
+        }
+    }
+    function closeModalStandBy() {
+        setState({
+            ...state,
+            asideShowButtons: {
+                ...state.asideShowButtons,
+                showModalToggle: false,
+            }
+        });
+    }
+    function openModalStandBy() {
+        if (state.asideShowButtons.showModalToggle &&
+            (
+                state.asideShowButtons.buySingle ||
+                state.asideShowButtons.newList ||
+                state.asideShowButtons.purchase
+            )
+        ) {
+            setState({
+                ...state,
+                asideShowButtons: {
+                    ...state.asideShowButtons,
+                    showModalToggle: false
+                }
+            });
+        } else if (!state.asideShowButtons.showModalToggle &&
+            (
+                state.asideShowButtons.buySingle ||
+                state.asideShowButtons.newList ||
+                state.asideShowButtons.purchase
+            )) {
+            setState({
+                ...state,
+                asideShowButtons: {
+                    ...state.asideShowButtons,
+                    showModalToggle: true
                 }
             });
         }
@@ -94,7 +136,9 @@ const Store: React.FC<IDataContextProps> = ({ children, changeTheme }) => {
             setTheme: _ => updateTheme(),
             setSaldoCurrent: (n: number) => updateState('saldoCurrent', n),
             setDate: (m: number, y: number) => setDateProvider(m, y),
-            setShowButton: (s: any, index?: any) => setAsideShowButtons(s, index)
+            setShowButton: (s: any, index?: any) => setAsideShowButtons(s, index),
+            closeModalStandBy: () => closeModalStandBy(),
+            openModalStandBy: () => openModalStandBy(),
         }}>
             {children}
         </DataContext.Provider>

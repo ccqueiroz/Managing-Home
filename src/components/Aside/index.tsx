@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -23,11 +23,6 @@ const Aside: React.FC = () => {
     const arrayImgSubMenuLink = [
         <MdInsertDriveFile />, <MdAddShoppingCart />, <MdShoppingBasket />
     ]
-
-    console.log(themes)
-    useEffect(() => {
-        console.log(window.location.pathname)
-    }, []);
 
     const arrayStateButtons = useMemo(() => {
         return [
@@ -55,36 +50,41 @@ const Aside: React.FC = () => {
                     dataAside.map((element, index) => {
                         return (
                             <div className="div" key={element.id}>
-                                <Link to={element.href} style={{ textDecoration: 'none' }} >
+                                <Link to={element.href} style={{ textDecoration: 'none' }}
+                                    onClick={() => element.title === 'Supermercado' ? themes.openModalStandBy() : themes.closeModalStandBy()}
+                                >
                                     <MenuItemLink href={element.href} pathIsEqual={analyzingPath(element.href)}>
                                         {arrayImgMenuLink[index]}
                                         <TitleMenuLink>{element.title}</TitleMenuLink>
                                     </MenuItemLink>
                                 </Link>
-                                <ContainerSubMenu>
-                                    {
-                                        themes.asideShowButtons.showModal ?
-                                            element.sub ?
-                                                element.submenu.map(menuItem => {
-                                                    return (
-                                                        <button key={menuItem.id} style={{
-                                                            display: arrayStateButtons.filter((_, index) => {
-                                                                return index === (menuItem.id - 1)
-                                                            })[0] ? 'flex' : 'none', zIndex:arrayStateButtons.filter((_, index) => {
-                                                                return index === (menuItem.id - 1)
-                                                            })[0] ? 99999 : 0
-                                                        }}
-                                                            onClick={e => themes.setShowButton(e, (menuItem.id - 1))}
-                                                        >
-                                                            <Img>{arrayImgSubMenuLink[menuItem.id - 1]}</Img>
-                                                            <span style={{flex:1}}>{menuItem.title}</span>
-                                                        </button>
-                                                    );
-                                                })
-                                                : null
-                                            : null
-                                    }
-                                </ContainerSubMenu>
+                                {
+                                    themes.asideShowButtons.showModalToggle ?
+                                        <ContainerSubMenu>
+                                            {
+                                                element.sub ?
+                                                    element.submenu.map(menuItem => {
+                                                        return (
+                                                            <button key={menuItem.id} style={{
+                                                                display: arrayStateButtons.filter((_, index) => {
+                                                                    return index === (menuItem.id - 1)
+                                                                })[0] ? 'flex' : 'none', zIndex: arrayStateButtons.filter((_, index) => {
+                                                                    return index === (menuItem.id - 1)
+                                                                })[0] ? 99999 : 0
+                                                            }}
+                                                                onClick={e => themes.setShowButton(e, (menuItem.id - 1))}
+                                                            >
+                                                                <Img>{arrayImgSubMenuLink[menuItem.id - 1]}</Img>
+                                                                <span style={{ flex: 1 }}>{menuItem.title}</span>
+                                                            </button>
+                                                        );
+                                                    })
+                                                    : null
+                                            }
+                                        </ContainerSubMenu>
+                                        : null
+                                }
+
                             </div>
                         );
                     })

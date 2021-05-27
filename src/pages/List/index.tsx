@@ -11,6 +11,7 @@ import { formatTitle, filterType, formatDate } from '../../utils/functionsAuxili
 import masterArray from '../../repositories/master';
 
 export interface IArrayData {
+    id_user?: number,
     id: number,
     description: string;
     date: string | Date;
@@ -45,6 +46,7 @@ const List: React.FC<IListProps> = (match) => {
     const [modal, setModal] = useState(false);
 
     const [itemEdit, setItemEdit] = useState<IArrayData>({
+        id_user: 1,
         id: 99999,
         description: '',
         date: '',
