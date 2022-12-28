@@ -105,7 +105,7 @@ const AuthProvider: React.FC = ({ children }) => {
             }
         } catch (error) {
             // setErro(!erro);
-            console.log(error.message);
+            // console.log(error.message);
         }
     }
 
