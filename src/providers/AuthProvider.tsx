@@ -46,7 +46,8 @@ const AuthProvider: React.FC = ({ children }) => {
     const signIn = async (dataForm: IFormLogin) => {
         try {
             console.log('signIn')
-            const response = await axiosApi.post<Token>('/auth/login', dataForm)
+            const response = await Promise.resolve({ data: { access_token: '2121', expires_in: 110000, usuario: {} } })
+            // const response = await axiosApi.post<Token>('/auth/login', dataForm)
             const { access_token, expires_in, usuario } = response.data;
             if (!usuario) {
                 console.log('!usuario')
